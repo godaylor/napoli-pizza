@@ -1,0 +1,64 @@
+@import '../variables';
+
+.categories {
+  ul {
+    display: flex;
+
+    @media (max-width: 1011px) {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      grid-column-gap: 10px;
+      grid-row-gap: 10px;
+      li {
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 844px) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      grid-column-gap: 7vw;
+    }
+
+    @media (max-width: 595px) {
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+    }
+
+    li {
+      @media (max-width: 844px) {
+        // margin: 0 20px;
+      }
+
+      @media (max-width: 595px) {
+        width: 290px;
+        height: 40px;
+        padding-top: 10px;
+        margin: 0;
+      }
+
+      background-color: #dadada;
+      padding: 13px 30px;
+      border-radius: 30px;
+      margin-right: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.1s ease-in-out;
+      @include noselect();
+
+      &:hover {
+        background-color: darken(#d9d9d9, 2%);
+      }
+
+      &:active {
+        background-color: darken(#d9d9d9, 5%);
+      }
+
+      &.active {
+        background-color: #282828;
+        color: #fff;
+      }
+    }
+  }
+}
