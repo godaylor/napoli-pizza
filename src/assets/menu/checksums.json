@@ -1,0 +1,338 @@
+[
+  {
+    "file": "src/assets/menu/masters/pizza-margherita.png",
+    "url": "https://images.pexels.com/photos/19102880/pexels-photo-19102880.jpeg?fit=crop&crop=center&w=960&h=960&fm=png&q=100",
+    "sha256": "8017ea0c5123a416261addc057ccf7c38a2d9193c16ebbf63131633d4800c925",
+    "bytes": 1503439
+  },
+  {
+    "file": "public/menu/pizza-margherita-480.jpg",
+    "url": "https://images.pexels.com/photos/19102880/pexels-photo-19102880.jpeg?fit=crop&crop=center&w=480&h=480&fm=jpg&q=82",
+    "sha256": "12bd891f681ae721e979f508b8d0452559bdacf51be4e0e0cc0ada5148108597",
+    "bytes": 52738
+  },
+  {
+    "file": "public/menu/pizza-margherita-480.webp",
+    "url": "https://images.pexels.com/photos/19102880/pexels-photo-19102880.jpeg?fit=crop&crop=center&w=480&h=480&fm=webp&q=78",
+    "sha256": "65af273198c22dbb509e943a5541b0f9764ddd77b99826024d014fe87f797978",
+    "bytes": 42848
+  },
+  {
+    "file": "public/menu/pizza-margherita-480.avif",
+    "url": "https://images.pexels.com/photos/19102880/pexels-photo-19102880.jpeg?fit=crop&crop=center&w=480&h=480&fm=avif&q=60",
+    "sha256": "843c2d954cc1be9c4a24e5d31cea31d73bc0000d0b4eff998e8bdf413ab23346",
+    "bytes": 35727
+  },
+  {
+    "file": "public/menu/pizza-margherita-960.jpg",
+    "url": "https://images.pexels.com/photos/19102880/pexels-photo-19102880.jpeg?fit=crop&crop=center&w=960&h=960&fm=jpg&q=82",
+    "sha256": "b81e27dc32b2b7db569ffc30acff0f9e4e8450d464116c1e51ccc6c0977ce0b6",
+    "bytes": 182685
+  },
+  {
+    "file": "public/menu/pizza-margherita-960.webp",
+    "url": "https://images.pexels.com/photos/19102880/pexels-photo-19102880.jpeg?fit=crop&crop=center&w=960&h=960&fm=webp&q=78",
+    "sha256": "8612eb1a0b6571f1f55ef801053367b27b2767638cb9bcb1762e4413ef46b122",
+    "bytes": 139920
+  },
+  {
+    "file": "public/menu/pizza-margherita-960.avif",
+    "url": "https://images.pexels.com/photos/19102880/pexels-photo-19102880.jpeg?fit=crop&crop=center&w=960&h=960&fm=avif&q=60",
+    "sha256": "b5be09644074faaa597c2460c71cf34055240330153be8711ee08a78c6f7dc55",
+    "bytes": 123515
+  },
+  {
+    "file": "src/assets/menu/masters/pizza-pepperoni.png",
+    "url": "https://images.pexels.com/photos/4394612/pexels-photo-4394612.jpeg?fit=crop&crop=center&w=960&h=960&fm=png&q=100",
+    "sha256": "9d86eb62b7f82f1c47f44cc29d6a74859aa11777fad051ada4d2f7dbfa16d615",
+    "bytes": 1678794
+  },
+  {
+    "file": "public/menu/pizza-pepperoni-480.jpg",
+    "url": "https://images.pexels.com/photos/4394612/pexels-photo-4394612.jpeg?fit=crop&crop=center&w=480&h=480&fm=jpg&q=82",
+    "sha256": "993763bd12a2760a17f6440c25d4a854306736fc2e925dcdb4f4d19be19c7e54",
+    "bytes": 65741
+  },
+  {
+    "file": "public/menu/pizza-pepperoni-480.webp",
+    "url": "https://images.pexels.com/photos/4394612/pexels-photo-4394612.jpeg?fit=crop&crop=center&w=480&h=480&fm=webp&q=78",
+    "sha256": "880f89b3183e8b014e9a7d4d2e14f86a0ebf57cf5844a44c062bc8b6e5288105",
+    "bytes": 56856
+  },
+  {
+    "file": "public/menu/pizza-pepperoni-480.avif",
+    "url": "https://images.pexels.com/photos/4394612/pexels-photo-4394612.jpeg?fit=crop&crop=center&w=480&h=480&fm=avif&q=60",
+    "sha256": "960bcac29175223ec31ec6470f2e1d9db22518da185fbdaf8bc74a703c78cd8d",
+    "bytes": 44727
+  },
+  {
+    "file": "public/menu/pizza-pepperoni-960.jpg",
+    "url": "https://images.pexels.com/photos/4394612/pexels-photo-4394612.jpeg?fit=crop&crop=center&w=960&h=960&fm=jpg&q=82",
+    "sha256": "c9c40981b043c1be98589798c1abcccf89c46ec9ac6eb1106723b885fd4d9437",
+    "bytes": 216062
+  },
+  {
+    "file": "public/menu/pizza-pepperoni-960.webp",
+    "url": "https://images.pexels.com/photos/4394612/pexels-photo-4394612.jpeg?fit=crop&crop=center&w=960&h=960&fm=webp&q=78",
+    "sha256": "60c8aba1ceb3d88f387b023f3e9b0e456af504759702322be512fb8a3785060c",
+    "bytes": 171118
+  },
+  {
+    "file": "public/menu/pizza-pepperoni-960.avif",
+    "url": "https://images.pexels.com/photos/4394612/pexels-photo-4394612.jpeg?fit=crop&crop=center&w=960&h=960&fm=avif&q=60",
+    "sha256": "221a236bcd30af8b5ea755a838ade4d005ea880d5c78d33aae0f3b6a11606e7c",
+    "bytes": 150678
+  },
+  {
+    "file": "src/assets/menu/masters/pizza-funghi.png",
+    "url": "https://images.pexels.com/photos/29897143/pexels-photo-29897143.jpeg?fit=crop&crop=center&w=960&h=960&fm=png&q=100",
+    "sha256": "52f8018ecdc99db439deae2da6949a092bdcaf1b762e61320ce0b032cfcbd0f3",
+    "bytes": 1939817
+  },
+  {
+    "file": "public/menu/pizza-funghi-480.jpg",
+    "url": "https://images.pexels.com/photos/29897143/pexels-photo-29897143.jpeg?fit=crop&crop=center&w=480&h=480&fm=jpg&q=82",
+    "sha256": "4983ed0f9b45ea85b1d017fa284c4603ce3478bf70dedbd75479d76aa22308f0",
+    "bytes": 72981
+  },
+  {
+    "file": "public/menu/pizza-funghi-480.webp",
+    "url": "https://images.pexels.com/photos/29897143/pexels-photo-29897143.jpeg?fit=crop&crop=center&w=480&h=480&fm=webp&q=78",
+    "sha256": "cc0a9e525efd3d3c9d39f9416abf2663066ce2070d335b72afd282e8c1b09d40",
+    "bytes": 65820
+  },
+  {
+    "file": "public/menu/pizza-funghi-480.avif",
+    "url": "https://images.pexels.com/photos/29897143/pexels-photo-29897143.jpeg?fit=crop&crop=center&w=480&h=480&fm=avif&q=60",
+    "sha256": "d086365783f5db38b6064c18f562b58435946d6cfa13f0da8e020a3f1b57e797",
+    "bytes": 51153
+  },
+  {
+    "file": "public/menu/pizza-funghi-960.jpg",
+    "url": "https://images.pexels.com/photos/29897143/pexels-photo-29897143.jpeg?fit=crop&crop=center&w=960&h=960&fm=jpg&q=82",
+    "sha256": "1cf79915e45765e4061f1dfd542186ce6b1b08752916d896ec32d5f31f19b3ee",
+    "bytes": 277478
+  },
+  {
+    "file": "public/menu/pizza-funghi-960.webp",
+    "url": "https://images.pexels.com/photos/29897143/pexels-photo-29897143.jpeg?fit=crop&crop=center&w=960&h=960&fm=webp&q=78",
+    "sha256": "a1a6320354ecee7f701953efb438b45abec75aa51faa7b2e44a8f57766b16687",
+    "bytes": 249174
+  },
+  {
+    "file": "public/menu/pizza-funghi-960.avif",
+    "url": "https://images.pexels.com/photos/29897143/pexels-photo-29897143.jpeg?fit=crop&crop=center&w=960&h=960&fm=avif&q=60",
+    "sha256": "ac7737a905a17b47f76b782c87da09bf8f211fe9bb7cbc38b09f11a1ad5d39af",
+    "bytes": 194700
+  },
+  {
+    "file": "src/assets/menu/masters/pizza-verdure.png",
+    "url": "https://images.pexels.com/photos/4394620/pexels-photo-4394620.jpeg?fit=crop&crop=center&w=960&h=960&fm=png&q=100",
+    "sha256": "b3a2b10c6b57bef329c4f4302941a53cf50d290fd740141222965ef4f5108ff9",
+    "bytes": 1536980
+  },
+  {
+    "file": "public/menu/pizza-verdure-480.jpg",
+    "url": "https://images.pexels.com/photos/4394620/pexels-photo-4394620.jpeg?fit=crop&crop=center&w=480&h=480&fm=jpg&q=82",
+    "sha256": "ab61c3e20d01e37a45001b7d4d1d37b614f0430becbd1ba5070bb17867368a9a",
+    "bytes": 59119
+  },
+  {
+    "file": "public/menu/pizza-verdure-480.webp",
+    "url": "https://images.pexels.com/photos/4394620/pexels-photo-4394620.jpeg?fit=crop&crop=center&w=480&h=480&fm=webp&q=78",
+    "sha256": "126fad84fdb7eadd24b5d31e2083cbbc3ad36e73fa920416e446b6c421dece7a",
+    "bytes": 49104
+  },
+  {
+    "file": "public/menu/pizza-verdure-480.avif",
+    "url": "https://images.pexels.com/photos/4394620/pexels-photo-4394620.jpeg?fit=crop&crop=center&w=480&h=480&fm=avif&q=60",
+    "sha256": "7ffb5cf70b9255d37cca7a65be450eef89d59c110326b9903b566f2c2a90038b",
+    "bytes": 41068
+  },
+  {
+    "file": "public/menu/pizza-verdure-960.jpg",
+    "url": "https://images.pexels.com/photos/4394620/pexels-photo-4394620.jpeg?fit=crop&crop=center&w=960&h=960&fm=jpg&q=82",
+    "sha256": "dfa0d515e1f9cbc11645ce1fdb3cc4f36d0ab9fb38172979095b81d33d8f98e7",
+    "bytes": 186514
+  },
+  {
+    "file": "public/menu/pizza-verdure-960.webp",
+    "url": "https://images.pexels.com/photos/4394620/pexels-photo-4394620.jpeg?fit=crop&crop=center&w=960&h=960&fm=webp&q=78",
+    "sha256": "83439d02047e8b033b7d4b5fc6efabe3746eff38c621d4903efc5c34301e1b40",
+    "bytes": 139052
+  },
+  {
+    "file": "public/menu/pizza-verdure-960.avif",
+    "url": "https://images.pexels.com/photos/4394620/pexels-photo-4394620.jpeg?fit=crop&crop=center&w=960&h=960&fm=avif&q=60",
+    "sha256": "908d77defbfe37a7f4b8b44784ad6d72018309458296b3aba70909ae33cd3183",
+    "bytes": 127917
+  },
+  {
+    "file": "src/assets/menu/masters/combo.png",
+    "url": "https://images.pexels.com/photos/21855993/pexels-photo-21855993.jpeg?fit=crop&crop=center&w=960&h=960&fm=png&q=100",
+    "sha256": "156b21ecdd8cb8d437781f7894aad5608ed7ae000b4039c83d123130fd1db703",
+    "bytes": 1738044
+  },
+  {
+    "file": "public/menu/combo-480.jpg",
+    "url": "https://images.pexels.com/photos/21855993/pexels-photo-21855993.jpeg?fit=crop&crop=center&w=480&h=480&fm=jpg&q=82",
+    "sha256": "7184258c0a6dd3169afa30a5a80dbc495dedf3d3d42abe6c4981cedc780493a5",
+    "bytes": 60198
+  },
+  {
+    "file": "public/menu/combo-480.webp",
+    "url": "https://images.pexels.com/photos/21855993/pexels-photo-21855993.jpeg?fit=crop&crop=center&w=480&h=480&fm=webp&q=78",
+    "sha256": "16bd3d102d65a34f749ccb6748de32839e1f639a2a1cd8eeae0ed4ec79ee041a",
+    "bytes": 51664
+  },
+  {
+    "file": "public/menu/combo-480.avif",
+    "url": "https://images.pexels.com/photos/21855993/pexels-photo-21855993.jpeg?fit=crop&crop=center&w=480&h=480&fm=avif&q=60",
+    "sha256": "f9cddb05dd0949a94e30aa9d557ca694058af8b113b539614f62320322126e62",
+    "bytes": 41887
+  },
+  {
+    "file": "public/menu/combo-960.jpg",
+    "url": "https://images.pexels.com/photos/21855993/pexels-photo-21855993.jpeg?fit=crop&crop=center&w=960&h=960&fm=jpg&q=82",
+    "sha256": "b3c2ab86ffbcfe34230c956bdaef7be6209521f039be48dabd3585ef9bc2ed76",
+    "bytes": 217449
+  },
+  {
+    "file": "public/menu/combo-960.webp",
+    "url": "https://images.pexels.com/photos/21855993/pexels-photo-21855993.jpeg?fit=crop&crop=center&w=960&h=960&fm=webp&q=78",
+    "sha256": "6791a5e3dd94d4020e5490139b03f353d7bbe1924afa720dacce178ab11f5f15",
+    "bytes": 175828
+  },
+  {
+    "file": "public/menu/combo-960.avif",
+    "url": "https://images.pexels.com/photos/21855993/pexels-photo-21855993.jpeg?fit=crop&crop=center&w=960&h=960&fm=avif&q=60",
+    "sha256": "06a18a0b35260e839115d90d3deecb1ceb73ba5ff4e1f1a7be3f5f42b8484158",
+    "bytes": 149819
+  },
+  {
+    "file": "src/assets/menu/masters/snacks.png",
+    "url": "https://images.pexels.com/photos/9862291/pexels-photo-9862291.jpeg?fit=crop&crop=center&w=960&h=960&fm=png&q=100",
+    "sha256": "cb0330b9e1b689a61034a9a2075b7836c687102d2f4e3c9e66e76470f0541630",
+    "bytes": 1635115
+  },
+  {
+    "file": "public/menu/snacks-480.jpg",
+    "url": "https://images.pexels.com/photos/9862291/pexels-photo-9862291.jpeg?fit=crop&crop=center&w=480&h=480&fm=jpg&q=82",
+    "sha256": "6408bc9a835cd6c7f2fbbf3568c094cf6b7a81d29700aedf01f6f2806666e34d",
+    "bytes": 58013
+  },
+  {
+    "file": "public/menu/snacks-480.webp",
+    "url": "https://images.pexels.com/photos/9862291/pexels-photo-9862291.jpeg?fit=crop&crop=center&w=480&h=480&fm=webp&q=78",
+    "sha256": "855fc1d9ed4143eac7498d80ed5af213ecfbb48a5686846c9a51cb2881ffc7c7",
+    "bytes": 48476
+  },
+  {
+    "file": "public/menu/snacks-480.avif",
+    "url": "https://images.pexels.com/photos/9862291/pexels-photo-9862291.jpeg?fit=crop&crop=center&w=480&h=480&fm=avif&q=60",
+    "sha256": "c9c1325a6265bdc5977a5cf60b1e46ab4d2e988192614056303f74db60f0ff9b",
+    "bytes": 42169
+  },
+  {
+    "file": "public/menu/snacks-960.jpg",
+    "url": "https://images.pexels.com/photos/9862291/pexels-photo-9862291.jpeg?fit=crop&crop=center&w=960&h=960&fm=jpg&q=82",
+    "sha256": "9ce527f60a588fcc66661acf920c97f8f4a82106a5e2c90ba57c33f67f45ea2c",
+    "bytes": 194107
+  },
+  {
+    "file": "public/menu/snacks-960.webp",
+    "url": "https://images.pexels.com/photos/9862291/pexels-photo-9862291.jpeg?fit=crop&crop=center&w=960&h=960&fm=webp&q=78",
+    "sha256": "7be14cd4454fa06a64d1e8e4c6105589485a43f6b1a1697f0ad8fd785bba9693",
+    "bytes": 155820
+  },
+  {
+    "file": "public/menu/snacks-960.avif",
+    "url": "https://images.pexels.com/photos/9862291/pexels-photo-9862291.jpeg?fit=crop&crop=center&w=960&h=960&fm=avif&q=60",
+    "sha256": "b707f8b0d758a7ac9aa626ef388b7d878fcd6d2658960bcf5fd5e1d05dacc352",
+    "bytes": 136151
+  },
+  {
+    "file": "src/assets/menu/masters/drinks.png",
+    "url": "https://images.pexels.com/photos/4725675/pexels-photo-4725675.jpeg?fit=crop&crop=center&w=960&h=960&fm=png&q=100",
+    "sha256": "cd5447b34c86e2ed23223a91cfad4e827f12f7ab7d6f9f663e558e86b2a03eb5",
+    "bytes": 580996
+  },
+  {
+    "file": "public/menu/drinks-480.jpg",
+    "url": "https://images.pexels.com/photos/4725675/pexels-photo-4725675.jpeg?fit=crop&crop=center&w=480&h=480&fm=jpg&q=82",
+    "sha256": "91bc118eeaa03d2acb0e24116172362bbf276d786bb23323764ae55201a35601",
+    "bytes": 13782
+  },
+  {
+    "file": "public/menu/drinks-480.webp",
+    "url": "https://images.pexels.com/photos/4725675/pexels-photo-4725675.jpeg?fit=crop&crop=center&w=480&h=480&fm=webp&q=78",
+    "sha256": "b60e031521b44978ad9932dcac9ea014ce985df6633e3d48888a12648e830bd2",
+    "bytes": 7044
+  },
+  {
+    "file": "public/menu/drinks-480.avif",
+    "url": "https://images.pexels.com/photos/4725675/pexels-photo-4725675.jpeg?fit=crop&crop=center&w=480&h=480&fm=avif&q=60",
+    "sha256": "7d16dddc17159eb54b072a2fef0ae416fd01b4ba95eb863d9431d136ddeb360d",
+    "bytes": 9031
+  },
+  {
+    "file": "public/menu/drinks-960.jpg",
+    "url": "https://images.pexels.com/photos/4725675/pexels-photo-4725675.jpeg?fit=crop&crop=center&w=960&h=960&fm=jpg&q=82",
+    "sha256": "7d1558b0df6657f510fd70081296627f2f2b5730cb346761af950720820dcd09",
+    "bytes": 38354
+  },
+  {
+    "file": "public/menu/drinks-960.webp",
+    "url": "https://images.pexels.com/photos/4725675/pexels-photo-4725675.jpeg?fit=crop&crop=center&w=960&h=960&fm=webp&q=78",
+    "sha256": "c10f322c13d4366d1bb2106432b7dff6df5d27a48a8ac8622991003d19a7dd90",
+    "bytes": 18558
+  },
+  {
+    "file": "public/menu/drinks-960.avif",
+    "url": "https://images.pexels.com/photos/4725675/pexels-photo-4725675.jpeg?fit=crop&crop=center&w=960&h=960&fm=avif&q=60",
+    "sha256": "a386f8872bcbfd672fa27aa3a82767b75ac1e3bb64366c9aa5d71b6df3e9f498",
+    "bytes": 21950
+  },
+  {
+    "file": "src/assets/menu/masters/desserts.png",
+    "url": "https://images.pexels.com/photos/10170013/pexels-photo-10170013.jpeg?fit=crop&crop=center&w=960&h=960&fm=png&q=100",
+    "sha256": "3e9bd0e55e370ea40f93a0a56b53ff29dfa34150dd604961dc7bd7f989cad2e5",
+    "bytes": 1115997
+  },
+  {
+    "file": "public/menu/desserts-480.jpg",
+    "url": "https://images.pexels.com/photos/10170013/pexels-photo-10170013.jpeg?fit=crop&crop=center&w=480&h=480&fm=jpg&q=82",
+    "sha256": "d1b7cf2f4853a7c8cb26d508921ba5291dcfecfd49eeabdf558100f5406c9f3f",
+    "bytes": 28492
+  },
+  {
+    "file": "public/menu/desserts-480.webp",
+    "url": "https://images.pexels.com/photos/10170013/pexels-photo-10170013.jpeg?fit=crop&crop=center&w=480&h=480&fm=webp&q=78",
+    "sha256": "464cdb8c750bd91e1acc61acb523262cbbd899e0d5c39dde8142dfc0d5834950",
+    "bytes": 19804
+  },
+  {
+    "file": "public/menu/desserts-480.avif",
+    "url": "https://images.pexels.com/photos/10170013/pexels-photo-10170013.jpeg?fit=crop&crop=center&w=480&h=480&fm=avif&q=60",
+    "sha256": "00220c9cf97b01ba5b9cca338eb74183b842b2debce50644b956b5af271a42ac",
+    "bytes": 20739
+  },
+  {
+    "file": "public/menu/desserts-960.jpg",
+    "url": "https://images.pexels.com/photos/10170013/pexels-photo-10170013.jpeg?fit=crop&crop=center&w=960&h=960&fm=jpg&q=82",
+    "sha256": "afbd92d3d47656e07ac60ca24fc5e01bd8d9c8933e04139f908f188029429af4",
+    "bytes": 94306
+  },
+  {
+    "file": "public/menu/desserts-960.webp",
+    "url": "https://images.pexels.com/photos/10170013/pexels-photo-10170013.jpeg?fit=crop&crop=center&w=960&h=960&fm=webp&q=78",
+    "sha256": "9d4990f522e23d8b20811fe07323ea8639b47da00269e7f992037d11ab1461c5",
+    "bytes": 61412
+  },
+  {
+    "file": "public/menu/desserts-960.avif",
+    "url": "https://images.pexels.com/photos/10170013/pexels-photo-10170013.jpeg?fit=crop&crop=center&w=960&h=960&fm=avif&q=60",
+    "sha256": "6a9b9b48cc4223f2f5cb230890454cfa0f4787d738f1fa97b60202079c3a684e",
+    "bytes": 61967
+  }
+]

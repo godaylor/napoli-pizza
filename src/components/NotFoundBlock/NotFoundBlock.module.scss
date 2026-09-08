@@ -1,14 +1,32 @@
 .root {
-  margin-top: 30px;
-  margin-bottom: 100px;
-  text-align: center;
-
-  h2 {
-    font-size: 30px;
-  }
+  display: grid;
+  justify-items: start;
+  max-width: 700px;
+  min-height: 55vh;
+  align-content: center;
+  padding-block: var(--space-12);
 }
 
-.descrition {
-  margin-top: 15px;
-  font-size: 20px;
+.root h1 {
+  max-width: 12ch;
+  margin-block: var(--space-3) var(--space-4);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 7vw, 4.5rem);
+  line-height: 1.02;
+}
+
+.root p {
+  max-width: 52ch;
+  margin-bottom: var(--space-7);
+  color: var(--color-ink-muted);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+.code {
+  color: var(--color-tomato-dark);
+  font-family: var(--font-utility);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
 }

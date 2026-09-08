@@ -1,46 +1,85 @@
 .root {
   position: relative;
-  left: -120px;
+  width: 100%;
 }
 
 .input {
-  border: 1px solid rgba(0, 0, 0, 0.22);
-  padding: 12px 20px;
-  padding-left: 50px;
-  width: 400px;
-  background-repeat: 15px;
-  font-size: 18px;
-  transition: all 0.1s ease-in-out;
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 48px;
+  border: 1px solid var(--color-steel-strong);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-carbon);
+  font: inherit;
+  font-size: 1rem;
+  transition:
+    border-color var(--motion-fast) var(--ease-out),
+    box-shadow var(--motion-fast) var(--ease-out),
+    background-color var(--motion-fast) var(--ease-out);
+}
 
-  &:focus {
-    border: 1px solid rgba(0, 0, 0, 0.32);
-  }
+.input::placeholder {
+  color: var(--color-ink-muted);
+}
 
-  &:hover {
-    border: 1px solid rgba(0, 0, 0, 0.5);
-  }
+.input:hover {
+  border-color: var(--color-carbon-soft);
+}
+
+.input:focus {
+  border-color: var(--color-cobalt);
+  background: white;
+  box-shadow: 0 0 0 4px var(--color-cobalt-soft);
+}
+
+.input::-webkit-search-cancel-button {
+  appearance: none;
 }
 
 .icon {
-  width: 29px;
-  height: 29px;
-  opacity: 0.28;
   position: absolute;
-  left: 10px;
-  top: 10px;
+  z-index: 1;
+  top: 50%;
+  left: 17px;
+  width: 20px;
+  height: 20px;
+  color: var(--color-ink-muted);
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
-.clearIcon {
-  width: 32px;
-  height: 32px;
-  opacity: 0.24;
+.clearButton {
   position: absolute;
-  right: 10px;
-  top: 10px;
+  top: 2px;
+  right: 2px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-ink-muted);
   cursor: pointer;
-  transition: all 0.1s ease-in-out;
+}
 
-  &:hover{
-    opacity: 0.4;
+.clearButton:hover {
+  background: var(--color-steel-soft);
+  color: var(--color-carbon);
+}
+
+.clearButton svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 1.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .input {
+    transition: none;
   }
 }

@@ -1,0 +1,96 @@
+{
+  "license": "Pexels License",
+  "licenseUrl": "https://www.pexels.com/license/",
+  "verifiedAt": "2026-09-08",
+  "usage": "Illustrative demo menu photographs, not exact photographs of every recipe. No endorsement implied.",
+  "assets": [
+    {
+      "key": "pizza-margherita",
+      "id": 19102880,
+      "author": "Rene Strgar",
+      "page": "https://www.pexels.com/photo/cut-margherita-pizza-19102880/",
+      "download": "https://images.pexels.com/photos/19102880/pexels-photo-19102880.jpeg",
+      "alt": {
+        "ru": "Пицца Маргарита с сыром и базиликом",
+        "en": "Margherita pizza with cheese and basil"
+      }
+    },
+    {
+      "key": "pizza-pepperoni",
+      "id": 4394612,
+      "author": "Natasha Filippovskaya",
+      "page": "https://www.pexels.com/photo/appetizing-assorted-pizza-with-meat-products-and-vegetables-4394612/",
+      "download": "https://images.pexels.com/photos/4394612/pexels-photo-4394612.jpeg",
+      "alt": {
+        "ru": "Пицца с пепперони, курицей, овощами и грибами",
+        "en": "Pizza with pepperoni, chicken, vegetables and mushrooms"
+      }
+    },
+    {
+      "key": "pizza-funghi",
+      "id": 29897143,
+      "author": "Elena Vcheva",
+      "page": "https://www.pexels.com/photo/delicious-gourmet-mushroom-and-cheese-pizza-29897143/",
+      "download": "https://images.pexels.com/photos/29897143/pexels-photo-29897143.jpeg",
+      "alt": {
+        "ru": "Пицца с грибами, сыром и базиликом",
+        "en": "Mushroom and cheese pizza with basil"
+      }
+    },
+    {
+      "key": "pizza-verdure",
+      "id": 4394620,
+      "author": "Natasha Filippovskaya",
+      "page": "https://www.pexels.com/photo/delicious-vegetable-pizza-with-melted-cheese-on-table-4394620/",
+      "download": "https://images.pexels.com/photos/4394620/pexels-photo-4394620.jpeg",
+      "alt": {
+        "ru": "Пицца с овощами и грибами",
+        "en": "Vegetable and mushroom pizza"
+      }
+    },
+    {
+      "key": "combo",
+      "id": 21855993,
+      "author": "Ali Dashti",
+      "page": "https://www.pexels.com/photo/top-view-of-pizzas-on-a-table-21855993/",
+      "download": "https://images.pexels.com/photos/21855993/pexels-photo-21855993.jpeg",
+      "alt": {
+        "ru": "Две пиццы на столе",
+        "en": "Two pizzas on a table"
+      }
+    },
+    {
+      "key": "snacks",
+      "id": 9862291,
+      "author": "Markus Winkler",
+      "page": "https://www.pexels.com/photo/close-up-shot-of-potato-wedges-on-a-plate-9862291/",
+      "download": "https://images.pexels.com/photos/9862291/pexels-photo-9862291.jpeg",
+      "alt": {
+        "ru": "Запечённые картофельные дольки с зеленью на тарелке",
+        "en": "Roasted potato wedges with herbs on a plate"
+      }
+    },
+    {
+      "key": "drinks",
+      "id": 4725675,
+      "author": "Polina Tankilevitch",
+      "page": "https://www.pexels.com/photo/top-view-of-a-lemonade-in-a-glass-4725675/",
+      "download": "https://images.pexels.com/photos/4725675/pexels-photo-4725675.jpeg",
+      "alt": {
+        "ru": "Лимонад в стакане и бутылке с лимоном",
+        "en": "Lemonade in a glass and bottle with lemon"
+      }
+    },
+    {
+      "key": "desserts",
+      "id": 10170013,
+      "author": "Cats Coming",
+      "page": "https://www.pexels.com/photo/close-up-shot-of-tiramisu-on-white-ceramic-plate-10170013/",
+      "download": "https://images.pexels.com/photos/10170013/pexels-photo-10170013.jpeg",
+      "alt": {
+        "ru": "Тирамису на керамической тарелке",
+        "en": "Tiramisu on a ceramic plate"
+      }
+    }
+  ]
+}

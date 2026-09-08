@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Napoli</title>
+  <desc id="description">Urban pizzeria with delivery and pickup</desc>
+  <rect width="1200" height="630" fill="#f6f3ec"/>
+  <rect x="56" y="56" width="1088" height="518" rx="48" fill="#17191d"/>
+  <circle cx="285" cy="315" r="150" fill="none" stroke="#3157c8" stroke-width="30" stroke-linecap="round" stroke-dasharray="628 314" transform="rotate(-62 285 315)"/>
+  <path d="M166 414a150 150 0 0 0 94 49" fill="none" stroke="#d9472b" stroke-width="30" stroke-linecap="round"/>
+  <text x="285" y="370" fill="#f6f3ec" font-family="Arial, sans-serif" font-size="150" font-weight="700" text-anchor="middle">N</text>
+  <text x="515" y="300" fill="#f6f3ec" font-family="Arial, sans-serif" font-size="92" font-weight="700">Napoli</text>
+  <text x="520" y="365" fill="#d9d7d0" font-family="Arial, sans-serif" font-size="30">PIZZA · DELIVERY · PICKUP</text>
+</svg>

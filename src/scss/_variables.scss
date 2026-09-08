@@ -1,8 +1,49 @@
-$black: #232323;
-$background: #ffdf8c;
-$gray-line: #f6f6f6;
-$orange: #fe5f1e;
+:root {
+  --color-porcelain: #f6f3ec;
+  --color-carbon: #17191d;
+  --color-carbon-soft: #42454c;
+  --color-ink-muted: #5e6168;
+  --color-tomato: #c43b22;
+  --color-tomato-dark: #9e2f1c;
+  --color-cobalt: #3157c8;
+  --color-cobalt-dark: #24439f;
+  --color-cobalt-soft: #e7ecff;
+  --color-basil: #2f6a4f;
+  --color-steel: #d9d7d0;
+  --color-steel-strong: #b9b6ac;
+  --color-steel-soft: #eeece6;
+  --color-surface: #fffdf8;
+  --color-error-soft: #fff0ec;
 
-$container-width: 90%;
+  --font-display: 'Unbounded', 'Arial Black', sans-serif;
+  --font-body: 'Golos Text', Inter, system-ui, -apple-system, sans-serif;
+  --font-utility: 'IBM Plex Mono', 'Cascadia Mono', monospace;
 
-$duration: 0.15s;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+  --space-11: 80px;
+  --space-12: 96px;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 18px 50px rgb(23 25 29 / 8%);
+  --shadow-float: 0 24px 70px rgb(23 25 29 / 14%);
+
+  --motion-fast: 160ms;
+  --motion-base: 240ms;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  --layout-max: 1320px;
+}
