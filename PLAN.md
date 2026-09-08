@@ -1,5 +1,7 @@
 # Napoli product transformation plan
 
+Image restoration update (2026-09-08): the Pexels substitution described later in this file is superseded. The eight original masters, all 48 original responsive derivatives and their original catalog/alt-text binding were restored byte-for-byte from the local pre-substitution snapshot. No other product behavior or data was rolled back.
+
 Napoli rebrand: GREEN. Package metadata is prepared for `06-napoli`; renaming the open repository root remains a separate manual step.
 
 Статус: **Core plan complete: Milestones 1A–10B and 12 GREEN; Milestone 11 formally SKIPPED by ADR-001 (2026-08-28).**

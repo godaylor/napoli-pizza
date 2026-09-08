@@ -1,5 +1,4 @@
 import type { Locale } from '../../../shared/i18n/locale';
-import { menuImageAlt } from './menuImageAlt';
 import type {
   CatalogCategory,
   CatalogProduct,
@@ -86,7 +85,7 @@ export const localizeCatalogProduct = (product: CatalogProduct, locale: Locale):
       ...product.availability,
       note: copy.availability ?? (product.availability.status === 'available' ? 'Made after you order.' : product.availability.note),
     },
-    image: { ...product.image, alt: menuImageAlt(product.image.key, 'en') ?? copy.alt },
+    image: { ...product.image, alt: copy.alt },
   };
 };
 

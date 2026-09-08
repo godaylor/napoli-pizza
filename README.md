@@ -78,8 +78,6 @@ Browser gate использует Chromium mobile/desktop, Firefox desktop и We
 
 ## Source and attribution
 
-Фотографии демоменю — лицензированные иллюстрации Pexels, не точные снимки каждой рецептуры. [Авторы и источники](public/IMAGE-CREDITS.md); файлы обслуживаются локально. Неизвестные исходные изображения исключены из публикации.
-
 Napoli развивает исходный учебный репозиторий, сохраняя его git history и сведения об источнике. Upstream: [godaylor/react-pizza-v2](https://github.com/godaylor/react-pizza-v2).
 
 Тексты лицензий зависимостей включены в [THIRD-PARTY-NOTICES.txt](public/THIRD-PARTY-NOTICES.txt) и обновляются при build. Статус прав на исходную базу, изображения и шрифты указан в [ASSET-LICENSES.md](docs/ASSET-LICENSES.md). Upstream-ссылка не является подтверждением лицензии на весь проект.

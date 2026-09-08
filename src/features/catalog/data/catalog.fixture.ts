@@ -1,4 +1,3 @@
-import { menuImageAlt } from './menuImageAlt';
 import {
   CATALOG_VERSION,
   type CatalogCategory,
@@ -49,7 +48,7 @@ export const CATALOG_CATEGORIES: CatalogCategory[] = [
 
 const image = (key: string, alt: string) => ({
   key,
-  alt: menuImageAlt(key, 'ru') ?? alt,
+  alt,
   width: 960 as const,
   height: 960 as const,
 });

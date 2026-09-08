@@ -4,31 +4,11 @@ Verified 2026-09-08. This inventory does not assign a new license to the applica
 
 ## Menu photographs
 
-The original eight PNG masters had no recorded author, source URL, license receipt or generation record. The historical PLAN.md label “project-owned” alone did not substantiate publication rights. All eight masters and all 48 responsive derivatives were therefore replaced, as authorized by the owner, before the first Napoli commit.
+The Pexels replacement introduced in commit `46c727c` was reverted because the photographs did not correspond to the products. The exact versions used immediately before that replacement were recovered byte-for-byte from the local ignored snapshot `artifacts/unverified-menu-originals/`.
 
-Replacement source: [Pexels License](https://www.pexels.com/license/), checked 2026-09-08. It permits free website/app use and modification; attribution is optional. Do not resell unaltered copies, redistribute as a stock-photo service, imply endorsement, or use the photos as a trademark. No recognizable people or visible third-party branding are used in the selected menu crops.
+Restored paths comprise eight masters — `combo`, `desserts`, `drinks`, `pizza-funghi`, `pizza-margherita`, `pizza-pepperoni`, `pizza-verdure`, `snacks` under `src/assets/menu/masters/*.png` — and all 48 matching 480/960 AVIF/WebP/JPEG files under `public/menu/`. Product-to-image keys and the original per-product RU/EN alt descriptions were restored; no subjective reassignment or generated image was used.
 
-| Local key | Photographer | Original photo page |
-|---|---|---|
-| `pizza-margherita` | Rene Strgar | [Pexels 19102880](https://www.pexels.com/photo/cut-margherita-pizza-19102880/) |
-| `pizza-pepperoni` | Natasha Filippovskaya | [Pexels 4394612](https://www.pexels.com/photo/appetizing-assorted-pizza-with-meat-products-and-vegetables-4394612/) |
-| `pizza-funghi` | Elena Vcheva | [Pexels 29897143](https://www.pexels.com/photo/delicious-gourmet-mushroom-and-cheese-pizza-29897143/) |
-| `pizza-verdure` | Natasha Filippovskaya | [Pexels 4394620](https://www.pexels.com/photo/delicious-vegetable-pizza-with-melted-cheese-on-table-4394620/) |
-| `combo` | Ali Dashti | [Pexels 21855993](https://www.pexels.com/photo/top-view-of-pizzas-on-a-table-21855993/) |
-| `snacks` | Markus Winkler | [Pexels 9862291](https://www.pexels.com/photo/close-up-shot-of-potato-wedges-on-a-plate-9862291/) |
-| `drinks` | Polina Tankilevitch | [Pexels 4725675](https://www.pexels.com/photo/top-view-of-a-lemonade-in-a-glass-4725675/) |
-| `desserts` | Cats Coming | [Pexels 10170013](https://www.pexels.com/photo/close-up-shot-of-tiramisu-on-white-ceramic-plate-10170013/) |
-
-All eight photographs use the Pexels License, not the application's software license. They are illustrative demo-menu photography reused across recipes, not a claim to show the exact recipe or every component of a combo.
-
-- Source metadata: `src/assets/menu/sources.json`.
-- Exact downloaded URLs, byte sizes and SHA-256: `src/assets/menu/checksums.json`.
-- Modifications: centered square crop; 960×960 PNG masters; 480/960 JPEG, WebP and AVIF exports via the source image service.
-- Import: `node scripts/import-menu-assets.mjs`. This optional maintenance command uses the network; normal build/deploy does not download images.
-- Runtime serves only checked-in `public/menu/` files, never hotlinks.
-- Unverified originals were preserved locally under ignored `artifacts/unverified-menu-originals/`; they are excluded from Git and dist.
-
-Public credits are also available at `/IMAGE-CREDITS.md`.
+The repository still has no author, generation record, source URL or license receipt for these restored images. PLAN.md M2B records them as project-owned and approved, but this document does not independently establish publication rights.
 
 ## Other materials
 

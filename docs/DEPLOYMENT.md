@@ -23,7 +23,7 @@ Production environment variables не нужны. См. [CONFIGURATION.md](CONFI
 
 ## First GitHub → Vercel publication
 
-1. Целевой репозиторий владельца: `https://github.com/godaylor/napoli-pizza`. Восемь исходных изображений заменены лицензированными Pexels-фото; авторы и источники — в `ASSET-LICENSES.md`.
+1. Целевой репозиторий владельца: `https://github.com/godaylor/napoli-pizza`. Восемь исходных master-изображений и их responsive-версии восстановлены из локальной предзаменной копии; история восстановления — в `ASSET-LICENSES.md`.
 2. Пользователь разрешил commit и push готового worktree. Публикуем ветку `master`, сохраняя историю; force push не нужен. Не включать `node_modules/`, `dist/`, `artifacts/`, coverage и browser reports.
 3. Дождаться зелёного GitHub Actions для опубликованного commit. Workflow использует `.nvmrc`, выполняет typecheck/lint/tests/build и Chromium/Firefox/WebKit.
 4. В Vercel импортировать `godaylor/napoli-pizza`, production branch `master`: root directory `.` (корень репозитория, не `06-napoli/`), framework Vite, install `npm ci`, build `npm run build`, output `dist`, Node `24.x`. Локальные проверки используют точный pin `24.20.0`; Vercel выбирает доступный patch в линии 24.x. `vercel.json` закрепляет framework/build/output и SPA rewrite. Environment variables пустые.

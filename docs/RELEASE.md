@@ -1,11 +1,17 @@
 <!-- generated-by: gsd-doc-writer -->
 # Release verification
 
+## Product image restoration — 2026-09-08
+
+The Pexels replacement from `46c727c` was traced to 8 master PNGs, 48 responsive files and the temporary Pexels mapping helper. All 56 image paths were restored byte-for-byte from `artifacts/unverified-menu-originals`, the local ignored snapshot created immediately before replacement. Catalog keys and original RU/EN per-product alt text are restored. Pexels metadata/import files were removed because they no longer describe the publication set. No functional code or product data was rolled back.
+
+Verification after restoration: all 56 working files match the pre-Pexels backup by SHA-256; all 36 production-preview cards render; eight representative product pages resolve the expected restored key. The full card contact sheet and product-page sheet were visually inspected at mobile/desktop sizes. Node 24.20.0 typecheck PASS, 31 files / 131 tests PASS, production build PASS (146 modules). Screenshots remain local under ignored `artifacts/` and are not publication files.
+
 ## GitHub publication candidate — 2026-09-08
 
 Owner selected `https://github.com/godaylor/napoli-pizza` and explicitly authorized commit/push of the complete Napoli worktree. The target initially had no Git refs. Publication branch: `master`, preserving the original tutorial history; no force push or Vercel deploy is part of this step.
 
-All eight unverified food-image masters and 48 responsive derivatives have been replaced with licensed Pexels photographs. Exact source pages, photographers, license, URLs and SHA-256 receipts are recorded in `ASSET-LICENSES.md`, `src/assets/menu/sources.json` and `checksums.json`; public credits are at `/IMAGE-CREDITS.md`. Original files remain only in ignored local `artifacts/unverified-menu-originals/`. All 56 new file hashes match their receipts; none of the original eight masters remains in the publication set.
+This section describes the superseded Pexels publication candidate. See “Product image restoration” above for the current state.
 
 Post-replacement gate on Node **24.20.0**: typecheck PASS, lint PASS, **32 files / 133 unit/integration tests PASS**, build PASS (**148 modules**), browser matrix **134 passed / 2 intentional skips**. Five required responsive widths, direct routes, image fallback, RU/EN, checkout/recovery, Axe and keyboard tests pass. No backend or deployment secrets were added.
 
