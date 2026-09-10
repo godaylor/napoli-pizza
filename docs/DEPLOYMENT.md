@@ -5,6 +5,8 @@
 
 Репозиторий подготовлен как static Vite SPA для Vercel. `vercel.json` содержит catch-all rewrite на `/index.html`, поэтому direct `/menu/...`, `/cart`, `/checkout`, `/orders` и `/order/...` передаются React Router.
 
+Канонический репозиторий — [godaylor/napoli-pizza](https://github.com/godaylor/napoli-pizza), production branch `master`. Существующий Vercel-проект — [maxeem/napoli-pizza](https://vercel.com/maxeem/napoli-pizza), домен — [napoli-pizza-tau.vercel.app](https://napoli-pizza-tau.vercel.app). При переносе меняется Git-подключение этого проекта; новый проект или домен не создаётся. `godaylor/napoli-pizza-archive` сохраняется без изменений.
+
 ## Build pipeline
 
 ```bash
@@ -21,12 +23,12 @@ Artifact — `dist/`. GitHub workflow выполняет quality/build/E2E, но
 
 Production environment variables не нужны. См. [CONFIGURATION.md](CONFIGURATION.md).
 
-## First GitHub → Vercel publication
+## GitHub → existing Vercel project publication
 
 1. Целевой репозиторий владельца: `https://github.com/godaylor/napoli-pizza`. Восемь исходных master-изображений и их responsive-версии восстановлены из локальной предзаменной копии; история восстановления — в `ASSET-LICENSES.md`.
 2. Пользователь разрешил commit и push готового worktree. Публикуем ветку `master`, сохраняя историю; force push не нужен. Не включать `node_modules/`, `dist/`, `artifacts/`, coverage и browser reports.
 3. Дождаться зелёного GitHub Actions для опубликованного commit. Workflow использует `.nvmrc`, выполняет typecheck/lint/tests/build и Chromium/Firefox/WebKit.
-4. В Vercel импортировать `godaylor/napoli-pizza`, production branch `master`: root directory `.` (корень репозитория, не `06-napoli/`), framework Vite, install `npm ci`, build `npm run build`, output `dist`, Node `24.x`. Локальные проверки используют точный pin `24.20.0`; Vercel выбирает доступный patch в линии 24.x. `vercel.json` закрепляет framework/build/output и SPA rewrite. Environment variables пустые.
+4. В настройках Git существующего `maxeem/napoli-pizza` отключить архивный репозиторий и подключить канонический `godaylor/napoli-pizza`, production branch `master`, сохраняя домен и deployment history. Root directory — корень репозитория (не `06-napoli/`), framework Vite, build `npm run build`, output `dist`, Node `24.x`; lockfile определяет зависимости. Локальные проверки используют точный pin `24.20.0`; Vercel выбирает доступный patch в линии 24.x. `vercel.json` закрепляет framework/build/output и SPA rewrite. Переменные окружения приложению не нужны.
 5. На полученном URL проверить `/menu/margherita-napoli`, `/cart`, `/checkout`, `/favorites`, `/orders`, неизвестный URL и reload. Проверить, что JS/CSS, `/favicon.svg` и `/THIRD-PARTY-NOTICES.txt` возвращают свои файлы, а не HTML.
 6. Пройти заказ в том же браузере, открыть прямые confirmation/tracking URL и обновить страницу. В новой вкладке без активной session допустимо сообщение об отсутствии заказа: это честная граница локального demo, не поломка SPA rewrite.
 

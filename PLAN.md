@@ -1,5 +1,9 @@
 # Napoli product transformation plan
 
+Canonical publication (2026-09-10): preserve the React Pizza history in `godaylor/napoli-pizza` and append the final Napoli imagery/release commits by fast-forward. Keep `napoli-pizza-archive` unchanged and reconnect the existing Vercel project/domain. Local gate: typecheck, lint, 132 unit/integration tests, build and 138 browser checks PASS (2 intentional skips). Details and hosted follow-up: docs/RELEASE.md.
+
+Menu image update (2026-09-10): 36 distinct product photographs now replace the shared category bindings. Three suitable originals remain active; 33 generated masters include the three user-approved previews unchanged. All earlier assets and product business data are preserved. See docs/MENU-IMAGE-REVIEW.md for correspondence and generation records.
+
 Image restoration update (2026-09-08): the Pexels substitution described later in this file is superseded. The eight original masters, all 48 original responsive derivatives and their original catalog/alt-text binding were restored byte-for-byte from the local pre-substitution snapshot. No other product behavior or data was rolled back.
 
 Napoli rebrand: GREEN. Package metadata is prepared for `06-napoli`; renaming the open repository root remains a separate manual step.

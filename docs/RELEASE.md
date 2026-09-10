@@ -1,6 +1,26 @@
 <!-- generated-by: gsd-doc-writer -->
 # Release verification
 
+## Canonical repository transfer — 2026-09-10
+
+The owner renamed the previous deployment repository to `godaylor/napoli-pizza-archive` and the repository with the React Pizza history to `godaylor/napoli-pizza`. The canonical remote `master` was `6941c3379d5ac0c4dda4d844981660aea6ca6f4a`; it is an ancestor of the complete local Napoli history. Existing commits `46c727c` and `762cedf` are retained unchanged, with the new product-specific imagery in `1229430`. Publication uses a normal fast-forward push; no archive deletion, history rewrite or force push.
+
+Pre-push checks on Node 24.20.0: typecheck PASS, lint PASS, 31 files / 132 unit/integration tests PASS, build PASS (146 modules). The build regenerates and validates full third-party license/copyright notices; `public/THIRD-PARTY-NOTICES.txt` and its deployed copy are identical (142253 bytes). Image provenance and the inherited-code license limitations remain explicitly recorded in `ASSET-LICENSES.md`; no new application license is inferred.
+
+Final full browser matrix: 138 PASS / 2 intentional Chromium-only skips, clean runner exit in 2.6 minutes. Chromium 390/1440, Firefox 1440 and WebKit 390 cover guest flows, recovery, keyboard/Axe, image decoding and 320/390/768/1024/1440 widths. The first sandbox run prevented Firefox page creation and stalled server cleanup; an unrestricted run exposed external Google Fonts waiting in the shared-link test's second tab. Font interception now belongs to the entire test context, retaining every user-visible assertion. A subsequent complete run passed. Browser-generated `debug.log` is ignored.
+
+Secret scan: 444 tracked/unignored worktree paths and 605 historical Git blobs, including 400 text objects, checked for private keys, GitHub/AWS/provider tokens, credential-bearing URLs and long literal secret assignments. No matches or credential-file paths found. `.env*`, `.vercel`, generated builds and local reports are excluded. This is a scoped pattern scan, not a proof that every possible secret format is absent. Fresh runtime `npm audit`: zero high/critical, two moderate React Router findings with the existing triage below.
+
+Vercel target is the existing `maxeem/napoli-pizza` project (`prj_bTzZ2D9sQrDrB7Ui9bljb8NYhsU5`) and the existing `napoli-pizza-tau.vercel.app` domain. Before reconnection, Git settings resolve the connected repository as `napoli-pizza-archive`; Vite, root directory and Node 24.x are already configured. Hosted checks follow the push and Git reconnection.
+
+## Product-specific images — 2026-09-10
+
+All 36 catalog products now use distinct image keys matched visually against their names, descriptions and categories. Three suitable original pizza images remain active; 33 replacements include the three approved previews copied unchanged. All 56 previous master/responsive files are preserved byte-for-byte. New assets include PNG masters and 480/960 AVIF, WebP and JPEG sources. See `docs/MENU-IMAGE-REVIEW.md` for the per-product record and generation references.
+
+Verification on Node 24.19.0: typecheck PASS, lint PASS, 31 files / 132 unit/integration tests PASS, production build PASS (146 modules). Browser checks cover all 36 images decoding at 320, 390, 768, 1024 and 1440 px, unique sources, RU/EN bindings, product details and adding to cart. Responsive image/fallback, keyboard and text-zoom assertions passed. A separate browser run against the existing preview completed cleanly with 2 tests passed, including the image audit and no critical/serious Axe violations on key guest routes. Six category screenshots were visually inspected. An earlier managed-webserver test run passed its assertions but stalled during Windows cleanup; it is not counted as a clean runner exit.
+
+Local production preview: port 32500. No deployment, commit, paid API or Docker changes were performed.
+
 ## Product image restoration — 2026-09-08
 
 The Pexels replacement from `46c727c` was traced to 8 master PNGs, 48 responsive files and the temporary Pexels mapping helper. All 56 image paths were restored byte-for-byte from `artifacts/unverified-menu-originals`, the local ignored snapshot created immediately before replacement. Catalog keys and original RU/EN per-product alt text are restored. Pexels metadata/import files were removed because they no longer describe the publication set. No functional code or product data was rolled back.

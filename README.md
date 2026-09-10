@@ -3,6 +3,8 @@
 
 Репозиторий: [godaylor/napoli-pizza](https://github.com/godaylor/napoli-pizza).
 
+Сайт: [napoli-pizza-tau.vercel.app](https://napoli-pizza-tau.vercel.app).
+
 Портфолио-версия городской пиццерии: от общего URL меню и конфигуратора до гостевого checkout, mock payment, подтверждения и детерминированного tracking.
 
 ## Возможности
