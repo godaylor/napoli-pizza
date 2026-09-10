@@ -47,4 +47,8 @@ describe('owned catalog fixture', () => {
       }
     }
   });
+
+  it('uses a distinct photograph for every product instead of category placeholders', () => {
+    expect(new Set(CATALOG_PRODUCTS.map((product) => product.image.key)).size).toBe(CATALOG_PRODUCTS.length);
+  });
 });

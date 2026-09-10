@@ -1,8 +1,10 @@
 # Materials and license evidence
 
-Verified 2026-09-08. This inventory does not assign a new license to the application.
+Updated 2026-09-10. This inventory does not assign a new license to the application.
 
 ## Menu photographs
+
+2026-09-10 product correspondence update: 33 new masters were created with built-in imagegen using the existing category photos and three user-approved previews as references. All 36 products now have separate image keys; Margherita, Funghi and Verdure/burrata retain their original photos. All eight earlier masters and 48 derivatives remain unchanged, including unused group still lifes. The three approved PNGs were copied byte-for-byte. See [MENU-IMAGE-REVIEW.md](MENU-IMAGE-REVIEW.md) for product mapping, generation prompts and source records. No paid API or external photo substitution was used. The following paragraphs describe the earlier restoration and provenance of the retained originals.
 
 The Pexels replacement introduced in commit `46c727c` was reverted because the photographs did not correspond to the products. The exact versions used immediately before that replacement were recovered byte-for-byte from the local ignored snapshot `artifacts/unverified-menu-originals/`.
 

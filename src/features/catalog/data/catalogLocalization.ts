@@ -25,7 +25,7 @@ interface ProductEnglishCopy {
 
 const PRODUCT_EN: Record<string, ProductEnglishCopy> = {
   '101': { name: 'Margherita Napoli', description: 'Pelati tomatoes, fior di latte, parmesan, and fresh basil.', alt: 'Margherita pizza with tomatoes, cheese, and basil' },
-  '102': { name: 'Pepperoni Napoli', description: 'Spicy pepperoni, mozzarella, tomato sauce, red onion, and oregano.', alt: 'Pepperoni pizza with mozzarella and chili', aliases: ['sausage', 'salami'] },
+  '102': { name: 'Pepperoni Napoli', description: 'Spicy pepperoni, mozzarella, tomato sauce, red onion, and oregano.', alt: 'Pepperoni pizza with mozzarella, red onion, and oregano', aliases: ['sausage', 'salami'] },
   '103': { name: 'Mortadella & pistachio', description: 'Mortadella, stracciatella, pistachio, and lemon zest.', alt: 'White pizza with mortadella, stracciatella, and pistachio' },
   '104': { name: 'Funghi tartufo', description: 'Mushrooms, mozzarella, thyme, and truffle cream.', alt: 'White pizza with mushrooms and thyme', aliases: ['mushroom', 'truffle'] },
   '105': { name: 'Quattro formaggi', description: 'Mozzarella, gorgonzola, taleggio, and parmesan on a cream base.', alt: 'White pizza with four Italian cheeses', aliases: ['cheese'] },
@@ -38,7 +38,7 @@ const PRODUCT_EN: Record<string, ProductEnglishCopy> = {
   '112': { name: 'Verdure & burrata', description: 'Zucchini, sweet pepper, cherry tomatoes, basil, and burrata.', alt: 'Vegetable pizza with zucchini, peppers, tomatoes, and burrata' },
   '113': { name: 'Carbonara', description: 'Guanciale, pecorino, mozzarella, egg yolk, and black pepper.', alt: 'White Carbonara pizza with guanciale and pecorino' },
   '114': { name: 'Tonno & cipolla', description: 'Tuna, red onion, capers, tomatoes, and mozzarella.', alt: 'Pizza with tuna, red onion, and capers', availability: 'Tuna returns tomorrow after 12:00.' },
-  '201': { name: 'Evening for two', description: '30 cm Margherita, 30 cm Pepperoni, and 1 L craft cola.', alt: 'Combo with two pizzas, drinks, and a hot side', availability: 'Fixed contents, no substitutions.' },
+  '201': { name: 'Evening for two', description: '30 cm Margherita, 30 cm Pepperoni, and 1 L craft cola.', alt: 'Margherita, Pepperoni, and a bottle of craft cola', availability: 'Fixed contents, no substitutions.' },
   '202': { name: 'Movie night', description: '30 cm Pepperoni, rosemary potatoes, and 1 L cola.', alt: 'Combo with pizza, potatoes, and a cold drink', availability: 'Fixed contents, no substitutions.' },
   '203': { name: 'Family oven', description: 'Three 30 cm pizzas, two sides, and four 0.33 L drinks.', alt: 'Large family combo with pizzas, sides, and drinks', availability: 'Fixed contents, no substitutions.' },
   '204': { name: 'Napoli lunch', description: '25 cm Margherita, tomato salad, and 0.5 L water.', alt: 'Lunch combo with a small pizza, salad, and water', availability: 'Available weekdays from 12:00 to 16:00.' },
