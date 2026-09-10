@@ -21,6 +21,8 @@ Hosted browser smoke on the retained domain passed the actual menu → Mortadell
 
 Linux CI passed typecheck, lint, 132 tests and build, then exposed a WebKit-only 11 px scroll overflow at 320 px. A native-select clipping hypothesis passed local checks but did not resolve the Linux finding, so that styling change was reverted. Geometry diagnostics now include the horizontal scroll offset and nested scroll containers. The remote Linux result remains the authoritative follow-up for this platform-specific finding.
 
+The expanded diagnostics locate the overflow inside the demo-controls grid, with no visible text or element crossing the viewport. Its implicit auto track is now an explicit `minmax(0, 1fr)` column so intrinsic control sizing cannot expand the grid track. Local lint, build and the responsive keyboard/configurator test in all four browser projects pass; the subsequent Linux CI run verifies the platform-specific result.
+
 ## Product-specific images — 2026-09-10
 
 All 36 catalog products now use distinct image keys matched visually against their names, descriptions and categories. Three suitable original pizza images remain active; 33 replacements include the three approved previews copied unchanged. All 56 previous master/responsive files are preserved byte-for-byte. New assets include PNG masters and 480/960 AVIF, WebP and JPEG sources. See `docs/MENU-IMAGE-REVIEW.md` for the per-product record and generation references.
