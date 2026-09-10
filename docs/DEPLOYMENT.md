@@ -3,7 +3,7 @@
 
 ## Deployment targets
 
-Репозиторий подготовлен как static Vite SPA для Vercel. `vercel.json` содержит catch-all rewrite на `/index.html`, поэтому direct `/menu/...`, `/cart`, `/checkout`, `/orders` и `/order/...` передаются React Router.
+Репозиторий подготовлен как Vite SPA плюс Vercel Function `/api/orders`. `vercel.json` исключает `/api/*` из SPA rewrite; остальные direct routes передаются React Router.
 
 Канонический репозиторий — [godaylor/napoli-pizza](https://github.com/godaylor/napoli-pizza), production branch `master`. Существующий Vercel-проект — [maxeem/napoli-pizza](https://vercel.com/maxeem/napoli-pizza), домен — [napoli-pizza-tau.vercel.app](https://napoli-pizza-tau.vercel.app). При переносе меняется Git-подключение этого проекта; новый проект или домен не создаётся. `godaylor/napoli-pizza-archive` сохраняется без изменений.
 
@@ -21,7 +21,16 @@ Artifact — `dist/`. GitHub workflow выполняет quality/build/E2E, но
 
 ## Environment setup
 
-Production environment variables не нужны. См. [CONFIGURATION.md](CONFIGURATION.md).
+Demo production не требует environment variables. Server mode требует `SUPABASE_URL`, `SUPABASE_SECRET_KEY` и client-safe `VITE_ORDER_API_MODE=server`; полный контракт — в [CONFIGURATION.md](CONFIGURATION.md).
+
+## Server-side order persistence
+
+1. Создайте Supabase project и выполните `supabase/migrations/202609110001_create_napoli_orders.sql` в SQL Editor.
+2. В Vercel Production Environment добавьте `SUPABASE_URL` и отдельный новый-format `SUPABASE_SECRET_KEY`; оба значения server-only. Добавьте `VITE_ORDER_API_MODE=server`.
+3. Redeploy `master`. `POST /api/orders` валидирует срок quote, арифметику integer minor units, fulfillment consistency, payload limits и idempotency; успешный snapshot зеркалируется в session/local sanitized history для прежнего reload UX.
+4. Проверьте success и timeout-after-create recovery, затем убедитесь в Supabase, что один idempotency key создаёт ровно один `napoli_orders` row и confirmed event.
+
+RLS включён на обеих таблицах; `anon` и `authenticated` не имеют grants. Secret key идёт только в `apikey` header от Vercel Function. API не логирует guest payload или key.
 
 ## GitHub → existing Vercel project publication
 

@@ -1,6 +1,16 @@
 <!-- generated-by: gsd-doc-writer -->
 # Release verification
 
+## Server-order extension — 2026-09-11
+
+A deployable Vercel `/api/orders` boundary and Supabase migration now cover successful guest-order persistence, status-event creation and idempotency recovery. The server validates quote expiry, payload limits, fulfillment consistency and all integer-minor-unit arithmetic before writing. Browser code never receives `SUPABASE_SECRET_KEY`; the migration enables RLS and revokes `anon`/`authenticated` access to both PII-bearing tables.
+
+Local verification after the change: client/API typecheck PASS, zero-warning lint PASS, 32 files / 136 unit-integration tests PASS, production build PASS (146 client modules). The focused Vercel handler test confirms lookup → insert → event behavior and `apikey`-only secret transport. The production site was opened and visually inspected in a normal in-app browser; its current demo-mode menu remains available.
+
+The full local Playwright rerun is not counted: the installed Playwright package expects browser revision 1234, which is absent from the shared machine cache. A one-test Chromium rerun reproduced the missing-executable failure before page creation. Because other PetProjects are running concurrently, this task did not mutate the shared browser cache or stop any process. The preceding 138-pass / 2 intentional-skip matrix remains historical evidence for the unchanged demo client flow, not evidence for server mode.
+
+Server mode is not deployed: no Supabase project URL or secret is available in this workspace. Apply the checked-in migration, add the three Vercel environment values described in `DEPLOYMENT.md`, redeploy, then run the hosted create/recovery/row-count smoke before marking Milestone 13 GREEN.
+
 ## Canonical repository transfer — 2026-09-10
 
 The owner renamed the previous deployment repository to `godaylor/napoli-pizza-archive` and the repository with the React Pizza history to `godaylor/napoli-pizza`. The canonical remote `master` was `6941c3379d5ac0c4dda4d844981660aea6ca6f4a`; it is an ancestor of the complete local Napoli history. Existing commits `46c727c` and `762cedf` are retained unchanged, with the new product-specific imagery in `1229430`. Publication uses a normal fast-forward push; no archive deletion, history rewrite or force push.

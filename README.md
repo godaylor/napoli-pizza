@@ -1,11 +1,13 @@
 <!-- generated-by: gsd-doc-writer -->
 # Napoli
 
+![Napoli menu on desktop](docs/screenshots/menu-desktop.jpg)
+
 Репозиторий: [godaylor/napoli-pizza](https://github.com/godaylor/napoli-pizza).
 
 Сайт: [napoli-pizza-tau.vercel.app](https://napoli-pizza-tau.vercel.app).
 
-Портфолио-версия городской пиццерии: от общего URL меню и конфигуратора до гостевого checkout, mock payment, подтверждения и детерминированного tracking.
+Портфолио-версия городской пиццерии: от общего URL меню и конфигуратора до гостевого checkout, mock payment, подтверждения и tracking. Репозиторий включает защищённый server-side order API и Supabase migration; публичный сайт продолжает работать в demo mode, пока владелец не подключит hosting secrets.
 
 ## Возможности
 
@@ -21,7 +23,7 @@
 ## Installation
 
 Нужен Node.js `24.20.0` из `.nvmrc`.
-Корневая папка и package metadata: `06-napoli`. Приложение — статическая демоверсия без backend и секретов.
+Корневая папка и package metadata: `06-napoli`. Без env приложение использует полностью рабочий local demo repository; server mode описан в [Deployment](docs/DEPLOYMENT.md).
 
 ```bash
 npm ci
@@ -67,7 +69,7 @@ Browser gate использует Chromium mobile/desktop, Firefox desktop и We
 
 ## Privacy and demo boundaries
 
-Регистрация не нужна. Mock payment не показывает полей карты и не принимает реальные платёжные реквизиты. Полный guest contact/address/note хранится только в активном `sessionStorage`; локальная история исключает эти данные. Optional Supabase account не входит в release — решение зафиксировано в [ADR-001](docs/ADR-001-SKIP-M11-SUPABASE.md).
+Регистрация не нужна. Mock payment не показывает полей карты и не принимает реальные платёжные реквизиты. В demo mode полный guest contact/address/note хранится только в активном `sessionStorage`; локальная история исключает эти данные. В server mode полный snapshot передаётся same-origin Vercel Function и хранится в закрытых Supabase-таблицах; браузер не получает database key. Optional Supabase account/auth не входит в release — решение зафиксировано в [ADR-001](docs/ADR-001-SKIP-M11-SUPABASE.md).
 
 ## Documentation
 

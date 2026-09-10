@@ -3,11 +3,14 @@
 
 ## Environment variables
 
-Consumer application не читает environment variables и не требует `.env`.
+Consumer application не требует `.env` в demo mode. Server-side persistence включается явно после применения checked-in migration.
 
 | Variable | Required | Default | Description |
 |---|---|---|---|
 | `CI` | No | unset / false | Используется только `playwright.config.js`: запрещает focused tests, включает retries и обычно задаётся CI runner автоматически. |
+| `VITE_ORDER_API_MODE` | No | `demo` | `server` направляет успешное создание/recovery заказа в same-origin `/api/orders`. Не содержит секретов. |
+| `SUPABASE_URL` | Server mode | — | Project URL, доступен только Vercel Function. |
+| `SUPABASE_SECRET_KEY` | Server mode | — | Новый `sb_secret_…` server key. Никогда не использовать с `VITE_` prefix и не коммитить. |
 
 ## Config file format
 
@@ -27,7 +30,7 @@ Consumer application не читает environment variables и не требу�
 
 ## Required vs optional settings
 
-Обязательных runtime settings нет. Отсутствие auth/backend/payment keys не мешает guest flow, потому что catalog, quote, payment и order adapters детерминированы локально.
+Обязательных runtime settings нет. Отсутствие backend keys не мешает guest flow: значение по умолчанию — детерминированный local demo repository. Для реального server-side сохранения примените `supabase/migrations/202609110001_create_napoli_orders.sql`, добавьте две server-only переменные и установите `VITE_ORDER_API_MODE=server`.
 
 ## Defaults
 

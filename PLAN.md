@@ -1010,6 +1010,20 @@ Core dependency path:
 
 Milestone 11 is an optional value-add branch after local favorites/history are proven. The production-looking guest product is complete without it.
 
-For every milestone, “done” means its user-visible path, resilience states, accessibility contract, unit/integration coverage and listed browser proof land together. The core plan is closed; no later milestone remains in this `PLAN.md`.
+For every milestone, “done” means its user-visible path, resilience states, accessibility contract, unit/integration coverage and listed browser proof land together.
+
+## Milestone 13 — Deployable server-side order persistence
+
+### User-visible outcome
+
+The existing guest checkout remains unchanged, while a production configuration can persist successful orders and idempotent recovery on the server rather than relying only on one browser session.
+
+### Implementation evidence (2026-09-11) — CODE COMPLETE / CONNECTION PENDING
+
+- Added a same-origin Vercel Function for create and idempotency lookup, strict runtime boundary validation, opaque order IDs and no-store responses.
+- Added Supabase tables for immutable order snapshots and status events with checks, indexes, RLS, explicit revoked public grants and service-only access.
+- Added opt-in server adapter with local active-session/sanitized-history mirroring; default demo mode remains functional until external secrets exist.
+- Added server-boundary tests. Typecheck (client + API), zero-warning lint and 32 files / 135 tests pass.
+- Remaining external gate: create/connect the Supabase project, apply the migration, add Vercel env values, redeploy and run hosted server-mode smoke. This milestone is not marked GREEN until that evidence exists.
 
 

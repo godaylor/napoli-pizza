@@ -654,3 +654,15 @@ The opening status and decision table preserve the original target-design contex
 - The optional Supabase/account branch is intentionally not shipped; see `ADR-001-SKIP-M11-SUPABASE.md`.
 - Release evidence, performance measurements and known external follow-ups are recorded in `RELEASE.md`.
 
+## 20. Server-side order persistence extension (2026-09-11)
+
+The account/auth decision in ADR-001 remains unchanged: purchase is guest-first and no login is required. A smaller deployable backend boundary is now implemented independently of auth:
+
+- `POST /api/orders` is a Vercel Web Handler. It validates payload size, quote expiry, integer-minor-unit arithmetic, fulfillment consistency and idempotency before persistence.
+- `GET /api/orders?idempotencyKey=…` supports explicit ambiguous-response recovery. The browser mirrors a successful server order into the existing versioned active-session and sanitized-history repositories.
+- `public.napoli_orders` and `public.napoli_order_events` are created by the checked-in Supabase migration. Both have RLS enabled; `anon` and `authenticated` receive no grants. Only the server secret can access guest PII.
+- `SUPABASE_SECRET_KEY` is read only by the Vercel Function and sent to Supabase in the `apikey` header. No database secret enters Vite client code, logs or source control.
+- `VITE_ORDER_API_MODE` defaults to `demo`, keeping the public guest journey operational before external infrastructure is connected. `server` is an explicit deploy-time switch.
+
+This extension deliberately does not add account sync, real card collection, courier operations or an admin product. Supabase Dashboard is sufficient for portfolio data inspection; a public management UI would expand the privacy and authorization surface without improving the customer journey.
+
