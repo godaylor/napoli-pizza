@@ -17,6 +17,10 @@ The canonical fast-forward push completed at `a8a61e7`, and Vercel Git settings 
 
 A local rerun also exposed the history test asserting its seeded label while the current catalog was still loading. It now waits for that same visible label. These changes affect tests only; product behavior and the production build remain unchanged.
 
+Hosted browser smoke on the retained domain passed the actual menu → Mortadella product → 30 cm plus extra cheese (1260 RUB) → persistent cart → delivery (199 RUB) → final quote (1459 RUB) → simulated payment → confirmation → tracking flow. Cart, confirmation and tracking direct reloads passed; English tracking also passed. The new Mortadella image was visually inspected. Vercel shows the canonical repository source, Production/Ready and the retained domain. Automated HTTP and isolated Playwright requests received Vercel Security Checkpoint (403) before the app; those automated production checks are not counted as passes. The ordinary browser passed Vercel's check without a security-setting change.
+
+Linux CI passed typecheck, lint, 132 tests and build, then exposed a WebKit-only 11 px scroll overflow at 320 px with no overflowing DOM box or text range. Native scenario/sort selects now constrain long values to their own width with ellipsis. Local five-width keyboard/recovery checks pass in all four browser projects, as do typecheck/lint/build. The remote Linux result remains the authoritative follow-up for this platform-specific finding.
+
 ## Product-specific images — 2026-09-10
 
 All 36 catalog products now use distinct image keys matched visually against their names, descriptions and categories. Three suitable original pizza images remain active; 33 replacements include the three approved previews copied unchanged. All 56 previous master/responsive files are preserved byte-for-byte. New assets include PNG masters and 480/960 AVIF, WebP and JPEG sources. See `docs/MENU-IMAGE-REVIEW.md` for the per-product record and generation references.
