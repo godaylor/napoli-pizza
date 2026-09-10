@@ -19,7 +19,7 @@ A local rerun also exposed the history test asserting its seeded label while the
 
 Hosted browser smoke on the retained domain passed the actual menu → Mortadella product → 30 cm plus extra cheese (1260 RUB) → persistent cart → delivery (199 RUB) → final quote (1459 RUB) → simulated payment → confirmation → tracking flow. Cart, confirmation and tracking direct reloads passed; English tracking also passed. The new Mortadella image was visually inspected. Vercel shows the canonical repository source, Production/Ready and the retained domain. Automated HTTP and isolated Playwright requests received Vercel Security Checkpoint (403) before the app; those automated production checks are not counted as passes. The ordinary browser passed Vercel's check without a security-setting change.
 
-Linux CI passed typecheck, lint, 132 tests and build, then exposed a WebKit-only 11 px scroll overflow at 320 px with no overflowing DOM box or text range. Native scenario/sort selects now constrain long values to their own width with ellipsis. Local five-width keyboard/recovery checks pass in all four browser projects, as do typecheck/lint/build. The remote Linux result remains the authoritative follow-up for this platform-specific finding.
+Linux CI passed typecheck, lint, 132 tests and build, then exposed a WebKit-only 11 px scroll overflow at 320 px. A native-select clipping hypothesis passed local checks but did not resolve the Linux finding, so that styling change was reverted. Geometry diagnostics now include the horizontal scroll offset and nested scroll containers. The remote Linux result remains the authoritative follow-up for this platform-specific finding.
 
 ## Product-specific images — 2026-09-10
 

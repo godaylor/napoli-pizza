@@ -441,21 +441,26 @@ test('M4B supports keyboard constraints and unavailable-modifier correction at r
     const dimensions = await page.evaluate(() => ({
       clientWidth: document.documentElement.clientWidth,
       scrollWidth: document.documentElement.scrollWidth,
+      scrollX: window.scrollX,
+      innerWidth: window.innerWidth,
+      scrollContainers: [...document.querySelectorAll('body *')]
+        .filter((element) => element.scrollWidth > element.clientWidth + 1)
+        .map((element) => ({ tag: element.tagName, className: element.className, width: element.clientWidth, scrollWidth: element.scrollWidth, right: element.getBoundingClientRect().right + window.scrollX })),
       textOverflow: [...document.querySelectorAll('body *')]
         .flatMap((element) => [...element.childNodes]
           .filter((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim())
           .map((node) => {
             const range = document.createRange();
             range.selectNodeContents(node);
-            return { tag: element.tagName, className: element.className, text: node.textContent.trim(), right: range.getBoundingClientRect().right };
+            return { tag: element.tagName, className: element.className, text: node.textContent.trim(), right: range.getBoundingClientRect().right + window.scrollX };
           }))
         .filter((entry) => entry.right > document.documentElement.clientWidth + 0.5),
       overflowing: [...document.querySelectorAll('body *')]
-        .filter((element) => element.getBoundingClientRect().right > document.documentElement.clientWidth + 0.5)
+        .filter((element) => element.getBoundingClientRect().right + window.scrollX > document.documentElement.clientWidth + 0.5)
         .slice(0, 8)
-        .map((element) => ({ tag: element.tagName, className: element.className, right: Math.round(element.getBoundingClientRect().right), text: element.textContent?.trim().slice(0, 80) })),
+        .map((element) => ({ tag: element.tagName, className: element.className, right: Math.round(element.getBoundingClientRect().right + window.scrollX), text: element.textContent?.trim().slice(0, 80) })),
     }));
-    expect(dimensions.overflowing).toEqual([]);
+    expect(dimensions.overflowing, JSON.stringify(dimensions)).toEqual([]);
     expect(dimensions.scrollWidth, JSON.stringify(dimensions)).toBeLessThanOrEqual(dimensions.clientWidth);
     if (width < 640) {
       const sticky = await page.locator('[data-sticky-cta]').boundingBox();
