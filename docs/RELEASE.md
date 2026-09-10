@@ -21,7 +21,7 @@ Hosted browser smoke on the retained domain passed the actual menu → Mortadell
 
 Linux CI passed typecheck, lint, 132 tests and build, then exposed a WebKit-only 11 px scroll overflow at 320 px. A native-select clipping hypothesis passed local checks but did not resolve the Linux finding, so that styling change was reverted. Geometry diagnostics now include the horizontal scroll offset and nested scroll containers. The remote Linux result remains the authoritative follow-up for this platform-specific finding.
 
-The expanded diagnostics locate the overflow inside the demo-controls grid, with no visible text or element crossing the viewport. Its implicit auto track is now an explicit `minmax(0, 1fr)` column so intrinsic control sizing cannot expand the grid track. Local lint, build and the responsive keyboard/configurator test in all four browser projects pass; the subsequent Linux CI run verifies the platform-specific result.
+The expanded diagnostics locate the overflow inside the demo-controls grid, with no visible text or element crossing the viewport. Explicit grid track sizing did not change the Linux result and was reverted. The inner demo-controls panel now clips overflow to its own bounds; its existing padding preserves room for focus outlines. This is scoped to that panel, with the page overflow assertions unchanged. Local lint, build and the responsive keyboard/configurator test in all four browser projects pass; the subsequent Linux CI run verifies the platform-specific result.
 
 ## Product-specific images — 2026-09-10
 

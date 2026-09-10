@@ -322,7 +322,8 @@ ul {
 
 .demo-controls > div {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  // Native WebKit controls can contribute scroll overflow beyond their boxes.
+  overflow: clip;
   min-width: min(360px, calc(100vw - 24px));
   gap: var(--space-2);
   padding: 0 16px 16px;
