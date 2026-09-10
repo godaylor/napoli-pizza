@@ -13,6 +13,10 @@ Secret scan: 444 tracked/unignored worktree paths and 605 historical Git blobs, 
 
 Vercel target is the existing `maxeem/napoli-pizza` project (`prj_bTzZ2D9sQrDrB7Ui9bljb8NYhsU5`) and the existing `napoli-pizza-tau.vercel.app` domain. Before reconnection, Git settings resolve the connected repository as `napoli-pizza-archive`; Vite, root directory and Node 24.x are already configured. Hosted checks follow the push and Git reconnection.
 
+The canonical fast-forward push completed at `a8a61e7`, and Vercel Git settings now show `godaylor/napoli-pizza` connected. The archive remains at `762cedf9ce1d73ddf3f7b02d3147f9dfa25943e3`. The first GitHub CI run revealed a detached-element race in the search integration assertion during catalog replacement. The assertion now waits for the named Tiramisu article and the final one-result list together, without retaining a stale DOM reference or weakening the expected result.
+
+A local rerun also exposed the history test asserting its seeded label while the current catalog was still loading. It now waits for that same visible label. These changes affect tests only; product behavior and the production build remain unchanged.
+
 ## Product-specific images — 2026-09-10
 
 All 36 catalog products now use distinct image keys matched visually against their names, descriptions and categories. Three suitable original pizza images remain active; 33 replacements include the three approved previews copied unchanged. All 56 previous master/responsive files are preserved byte-for-byte. New assets include PNG masters and 480/960 AVIF, WebP and JPEG sources. See `docs/MENU-IMAGE-REVIEW.md` for the per-product record and generation references.

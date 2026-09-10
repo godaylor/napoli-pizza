@@ -56,10 +56,10 @@ describe('Napoli owned menu', () => {
     await waitFor(() =>
       expect(new URLSearchParams(window.location.search).get('q')).toBe('тирамису'),
     );
-    expect(await screen.findByText('Тирамису')).toBeInTheDocument();
-    await waitFor(() =>
-      expect(document.querySelectorAll('[data-product-card]')).toHaveLength(1),
-    );
+    await waitFor(() => {
+      expect(screen.getByRole('article', { name: 'Тирамису' })).toBeInTheDocument();
+      expect(screen.getAllByRole('article')).toHaveLength(1);
+    });
     expect(document.querySelector('[class*="pagination"]')).not.toBeInTheDocument();
   });
 

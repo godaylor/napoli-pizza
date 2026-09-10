@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
@@ -24,7 +24,7 @@ describe('Orders', () => {
 
     expect(screen.getByRole('heading', { name: 'Недавних заказов нет' })).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Показать demo-заказ' }));
-    expect(screen.getByText('DEMO / НЕПЕРСОНАЛЬНЫЙ')).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText('DEMO / НЕПЕРСОНАЛЬНЫЙ')).toBeInTheDocument());
     await user.click(screen.getByRole('button', { name: 'Повторить заказ' }));
 
     expect(await screen.findByRole('heading', { name: /Повторить nap_demo/ })).toBeInTheDocument();
