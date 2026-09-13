@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 
 import type { DemoOrder } from '../src/features/order/model/order.types';
-import { validateOrderCreateRequest } from './_lib/orderValidation';
+import { validateOrderCreateRequest } from './_lib/orderValidation.js';
 
 const json = (body: unknown, status = 200) =>
   Response.json(body, {
