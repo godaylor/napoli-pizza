@@ -72,12 +72,14 @@ describe('server order boundary validation', () => {
   it('persists through server-only Supabase credentials without an Authorization header', async () => {
     vi.stubEnv('SUPABASE_URL', 'https://database.example');
     vi.stubEnv('SUPABASE_SECRET_KEY', 'sb_secret_test');
+    const request = validRequest();
+    request.input.quote.expiresAt = new Date(Date.now() + 60_000).toISOString();
     const databaseFetch = vi.fn()
       .mockResolvedValueOnce(Response.json([]))
       .mockResolvedValueOnce(Response.json([{ order_payload: {
-        ...validRequest().input,
+        ...request.input,
         id: 'nap_0123456789abcdef0123456789abcdef',
-        idempotencyKey: validRequest().idempotencyKey,
+        idempotencyKey: request.idempotencyKey,
         status: 'confirmed',
         createdAt: new Date(now).toISOString(),
         updatedAt: new Date(now).toISOString(),
@@ -89,7 +91,7 @@ describe('server order boundary validation', () => {
     const response = await POST(new Request('https://napoli.example/api/orders', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(validRequest()),
+      body: JSON.stringify(request),
     }));
 
     expect(response.status).toBe(201);
