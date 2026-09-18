@@ -15,8 +15,15 @@ for (const [directory, entry] of Object.entries(lock.packages).sort(([a], [b]) =
   const pkg = JSON.parse(await readFile(path.join(absolute, 'package.json'), 'utf8'));
   if (pkg.version !== entry.version) throw new Error(`Install differs from lockfile: ${directory}`);
   const names = (await readdir(absolute)).filter((name) => /^(licen[sc]e|copying|notice)(\.|$)/i.test(name)).sort();
-  if (names.length === 0) throw new Error(`Missing license text: ${pkg.name}`);
   sections.push(`${pkg.name}@${pkg.version} — ${pkg.license ?? 'See license text'} (${directory})`);
+  if (names.length === 0) {
+    const readme = await readFile(path.join(absolute, 'README.md'), 'utf8').catch(() => '');
+    const embeddedLicense = readme.match(/^## license\s*\n([\s\S]+)$/im)?.[1];
+    if (!embeddedLicense?.includes('Permission is hereby granted')) {
+      throw new Error(`Missing license text: ${pkg.name}`);
+    }
+    sections.push(embeddedLicense.trim());
+  }
   for (const name of names) sections.push(await readFile(path.join(absolute, name), 'utf8'));
 }
 

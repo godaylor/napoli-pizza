@@ -9,6 +9,7 @@ Consumer application не требует `.env` в demo mode. Server-side persis
 |---|---|---|---|
 | `CI` | No | unset / false | Используется только `playwright.config.js`: запрещает focused tests, включает retries и обычно задаётся CI runner автоматически. |
 | `VITE_ORDER_API_MODE` | No | `demo` | `server` направляет успешное создание/recovery заказа в same-origin `/api/orders`. Не содержит секретов. |
+| `NAPOLI_DATABASE_URL` | Shared-project server mode | — | Production Secret: transaction-pooler URL for restricted `napoli_api`, used only by Vercel Function. Takes precedence over the dedicated-project REST configuration below. Never prefix with `VITE_`. |
 | `SUPABASE_URL` | Server mode | — | Project URL, доступен только Vercel Function. |
 | `SUPABASE_SECRET_KEY` | Server mode | — | Новый `sb_secret_…` server key. Никогда не использовать с `VITE_` prefix и не коммитить. |
 

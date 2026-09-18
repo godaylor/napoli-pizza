@@ -25,6 +25,14 @@ Demo production не требует environment variables. Server mode треб�
 
 ## Server-side order persistence
 
+### Shared Free project (current Napoli deployment)
+
+Use `supabase/shared-project.sql` once in the existing shared Free project. It creates only `napoli` objects and the restricted `napoli_api` login: SELECT/INSERT only, RLS enabled, no access grants to ReplayLab, Auth or other schemas. Do not rerun CREATE statements against the already provisioned project. Set its password separately; save the transaction-pooler connection URL only as the Production Secret `NAPOLI_DATABASE_URL` in `maxeem/napoli-pizza`. Set Production Config `VITE_ORDER_API_MODE=server`. Never use the shared project's broad service-role key.
+
+The API prefers `NAPOLI_DATABASE_URL`, verifies TLS certificates, uses one pooled connection per function instance and a transaction for snapshot + confirmed event. The role has a three-connection limit and five-second statement timeout. Shared compute/quotas are not infrastructure isolation. Existing schemas, Auth settings and other deployments remain unchanged. Payment and subsequent tracking remain simulations; browser history stays sanitized and active-session refresh retains its existing behavior.
+
+### Dedicated project alternative (not used by the shared deployment)
+
 1. Создайте Supabase project и выполните `supabase/migrations/202609110001_create_napoli_orders.sql` в SQL Editor.
 2. В Vercel Production Environment добавьте `SUPABASE_URL` и отдельный новый-format `SUPABASE_SECRET_KEY`; оба значения server-only. Добавьте `VITE_ORDER_API_MODE=server`.
 3. Redeploy `master`. `POST /api/orders` валидирует срок quote, арифметику integer minor units, fulfillment consistency, payload limits и idempotency; успешный snapshot зеркалируется в session/local sanitized history для прежнего reload UX.

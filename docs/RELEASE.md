@@ -1,6 +1,12 @@
 <!-- generated-by: gsd-doc-writer -->
 # Release verification
 
+## Shared Free persistence — 2026-09-18 (deployment verification pending)
+
+The existing Free project now contains a separate `napoli` schema and restricted `napoli_api` role. Prior SQL privilege checks denied access to `public.replaylab_rooms` and `auth.users`; anonymous schema usage was denied. No shared service-role key is used. The owner assigned the role password manually; its URL was transferred directly to the Napoli Vercel Production Secret `NAPOLI_DATABASE_URL`, with `VITE_ORDER_API_MODE=server` as Production Config. No credential was written to local files or Git.
+
+The PostgreSQL adapter atomically inserts snapshot + confirmed event, handles duplicate idempotency keys, verifies TLS and limits its pool to one connection. Node 24.19.0 local gate: typecheck PASS, lint PASS, 33 files / 140 tests PASS, build PASS. Hosted CI/deployment and production journey verification are still pending; this is not a completed production smoke claim. UI unchanged; paid resources and other projects/processes untouched.
+
 ## Server-order extension — 2026-09-11
 
 A deployable Vercel `/api/orders` boundary and Supabase migration now cover successful guest-order persistence, status-event creation and idempotency recovery. The server validates quote expiry, payload limits, fulfillment consistency and all integer-minor-unit arithmetic before writing. Browser code never receives `SUPABASE_SECRET_KEY`; the migration enables RLS and revokes `anon`/`authenticated` access to both PII-bearing tables.

@@ -35,6 +35,14 @@ const databaseRequest = async (
 };
 
 const findOrder = async (field: 'id' | 'idempotency_key', value: string) => {
+  if (process.env.NAPOLI_DATABASE_URL) {
+    try {
+      const { findPostgresOrder } = await import('./_lib/postgresOrders.js');
+      return { order: await findPostgresOrder(field, value) };
+    } catch {
+      return { failed: true as const };
+    }
+  }
   const response = await databaseRequest(
     `napoli_orders?${field}=eq.${encodeURIComponent(value)}&select=order_payload&limit=1`,
     { headers: { accept: 'application/json' } },
@@ -86,6 +94,15 @@ export async function POST(request: Request) {
     updatedAt: timestamp,
     tracking: { clockOffsetMs: 0, elapsedFloorMs: 0, scenario: 'default' },
   };
+  if (process.env.NAPOLI_DATABASE_URL) {
+    try {
+      const { insertPostgresOrder } = await import('./_lib/postgresOrders.js');
+      const result = await insertPostgresOrder(order);
+      return json({ order: result.order }, result.created ? 201 : 200);
+    } catch {
+      return json({ error: 'database-unavailable' }, 502);
+    }
+  }
   const response = await databaseRequest('napoli_orders?on_conflict=idempotency_key', {
     method: 'POST',
     headers: { prefer: 'resolution=ignore-duplicates,return=representation' },
