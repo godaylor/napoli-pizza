@@ -3,6 +3,14 @@ import { randomUUID } from 'node:crypto';
 import type { DemoOrder } from '../src/features/order/model/order.types';
 import { validateOrderCreateRequest } from './_lib/orderValidation.js';
 
+// Never log database messages, URLs or order payloads: only bounded error codes.
+const reportDatabaseFailure = (error: unknown) => {
+  const code = typeof error === 'object' && error !== null && 'code' in error
+    && typeof error.code === 'string' && /^[A-Z0-9_]{2,60}$/.test(error.code)
+    ? error.code : 'UNKNOWN';
+  console.error('napoli_database_failure', code);
+};
+
 const json = (body: unknown, status = 200) =>
   Response.json(body, {
     status,
@@ -39,7 +47,8 @@ const findOrder = async (field: 'id' | 'idempotency_key', value: string) => {
     try {
       const { findPostgresOrder } = await import('./_lib/postgresOrders.js');
       return { order: await findPostgresOrder(field, value) };
-    } catch {
+    } catch (error) {
+      reportDatabaseFailure(error);
       return { failed: true as const };
     }
   }
@@ -99,7 +108,8 @@ export async function POST(request: Request) {
       const { insertPostgresOrder } = await import('./_lib/postgresOrders.js');
       const result = await insertPostgresOrder(order);
       return json({ order: result.order }, result.created ? 201 : 200);
-    } catch {
+    } catch (error) {
+      reportDatabaseFailure(error);
       return json({ error: 'database-unavailable' }, 502);
     }
   }
