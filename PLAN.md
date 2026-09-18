@@ -1026,4 +1026,11 @@ The existing guest checkout remains unchanged, while a production configuration 
 - Added server-boundary tests. Typecheck (client + API), zero-warning lint and 32 files / 135 tests pass.
 - Remaining external gate: create/connect the Supabase project, apply the migration, add Vercel env values, redeploy and run hosted server-mode smoke. This milestone is not marked GREEN until that evidence exists.
 
+### Shared Free deployment update (2026-09-18) — SMOKE BLOCKED
+
+- Isolated `napoli` schema and restricted `napoli_api` provisioned in the existing Free project; no shared service-role key or paid slot.
+- Napoli-only Production Secret `NAPOLI_DATABASE_URL` and Config `VITE_ORDER_API_MODE=server` saved; commit `268b3f0` pushed, Vercel Production/Ready.
+- Local typecheck/lint/build and 140 tests pass, including atomic snapshot/event rollback and duplicate-idempotency tests.
+- Public API/browser verification is blocked by Security Checkpoint / browser auto-review HTTP 403. Database runtime connectivity and hosted cart → checkout → order → refresh/recovery → tracking/history are not yet verified. M13 remains not GREEN.
+
 

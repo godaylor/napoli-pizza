@@ -1,11 +1,13 @@
 <!-- generated-by: gsd-doc-writer -->
 # Release verification
 
-## Shared Free persistence — 2026-09-18 (deployment verification pending)
+## Shared Free persistence — 2026-09-18 (production smoke blocked)
 
 The existing Free project now contains a separate `napoli` schema and restricted `napoli_api` role. Prior SQL privilege checks denied access to `public.replaylab_rooms` and `auth.users`; anonymous schema usage was denied. No shared service-role key is used. The owner assigned the role password manually; its URL was transferred directly to the Napoli Vercel Production Secret `NAPOLI_DATABASE_URL`, with `VITE_ORDER_API_MODE=server` as Production Config. No credential was written to local files or Git.
 
 The PostgreSQL adapter atomically inserts snapshot + confirmed event, handles duplicate idempotency keys, verifies TLS and limits its pool to one connection. Node 24.19.0 local gate: typecheck PASS, lint PASS, 33 files / 140 tests PASS, build PASS. Hosted CI/deployment and production journey verification are still pending; this is not a completed production smoke claim. UI unchanged; paid resources and other projects/processes untouched.
+
+Commit `268b3f0` was pushed successfully. Vercel deployment `CpF6mS6GXjteQuxHDcH2cEdx6usq` reports Production/Ready. The public API probe received Vercel Security Checkpoint, and the production browser navigation was denied by the browser approval service with HTTP 403. No bypass, security weakening or alternate-browser workaround was attempted. End-to-end database connectivity and the production create/recovery/tracking/history journey remain unverified; Ready alone is not runtime proof.
 
 ## Server-order extension — 2026-09-11
 

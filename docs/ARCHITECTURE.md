@@ -666,3 +666,7 @@ The account/auth decision in ADR-001 remains unchanged: purchase is guest-first 
 
 This extension deliberately does not add account sync, real card collection, courier operations or an admin product. Supabase Dashboard is sufficient for portfolio data inspection; a public management UI would expand the privacy and authorization surface without improving the customer journey.
 
+### Shared Free project deployment (2026-09-18)
+
+The current deployment replaces the dedicated-project REST credential with `NAPOLI_DATABASE_URL` for the restricted `napoli_api` role, via the transaction pooler. Only `napoli.orders` and `napoli.order_events` are granted SELECT/INSERT; RLS is enabled and no Auth/ReplayLab grants are added. Snapshot and confirmed event commit atomically. The original public-table REST migration remains a dedicated-project alternative, not the shared deployment setup. Compute and quotas remain shared. No account sync or backend-driven courier tracking is introduced. Production runtime smoke remains pending; see RELEASE.md.
+
