@@ -1,11 +1,12 @@
 import pg from 'pg';
+import { supabaseCa } from './supabaseCa.js';
 import type { DemoOrder } from '../../src/features/order/model/order.types';
 
 let pool: pg.Pool | undefined;
 const database = () => {
   pool ??= new pg.Pool({
     connectionString: process.env.NAPOLI_DATABASE_URL,
-    ssl: { rejectUnauthorized: true },
+    ssl: { rejectUnauthorized: true, ca: supabaseCa },
     max: 1,
     idleTimeoutMillis: 5_000,
     connectionTimeoutMillis: 8_000,
