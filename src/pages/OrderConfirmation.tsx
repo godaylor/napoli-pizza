@@ -105,7 +105,9 @@ export default function OrderConfirmation() {
           <p>{localizeOrderLabel(order.fulfillment.label, locale)}</p>
           <p><strong>{localizeOrderLabel(order.quote.etaLabel, locale)}</strong></p>
           <p className={styles.muted}>
-            {t('Контакт и полный адрес сохраняются только в этой вкладке до 24 часов и не попадают в историю заказов.', 'Contact details and the full address are saved only in this tab for up to 24 hours and are excluded from order history.')}
+            {import.meta.env.VITE_ORDER_API_MODE === 'server'
+              ? t('Заказ, контакт и адрес сохранены на сервере. В этой вкладке копия доступна до 24 часов; история на устройстве не содержит контактов и адреса.', 'The order, contact details and address are saved on the server. A copy remains in this tab for up to 24 hours; device history excludes contact details and the address.')
+              : t('Контакт и полный адрес сохраняются только в этой вкладке до 24 часов и не попадают в историю заказов.', 'Contact details and the full address are saved only in this tab for up to 24 hours and are excluded from order history.')}
           </p>
         </aside>
       </div>

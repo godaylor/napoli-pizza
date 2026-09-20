@@ -1,6 +1,16 @@
 <!-- generated-by: gsd-doc-writer -->
 # Release verification
 
+## Production persistence smoke — 2026-09-20 — PASS
+
+TLS fix `5938534` is Production/Ready in Vercel (`HHgFF54AviUwJkQsnyYm476CDmV5`, also `6r4k4LBGQRrCskvwGrdgzEHL4ShV`), with green GitHub CI run `35390782086`. The original 502 was `SELF_SIGNED_CERT_IN_CHAIN`; the server now trusts the official Supabase Root 2021 CA while retaining certificate and hostname verification. No SSL enforcement setting or shared database setting was changed.
+
+Normal in-app browser smoke on `napoli-pizza-tau.vercel.app` passed: persisted cart → delivery checkout → 590 RUB item + 199 RUB delivery → simulated payment → server order → confirmation reload → tracking reload → sanitized history → repeat into cart. A second checkout using “timeout after creation” recovered successfully through the server adapter, then confirmation reload, tracking completion and history passed. IDs: `nap_af653aee53f14629b3a0c7df40f1cfa6` (success), `nap_80b2e6d46ff144438c47161609611565` (recovery). Only synthetic contact data was used; no real payment or restaurant fulfillment occurs.
+
+Supabase read-only checks show exactly 2 order rows, 2 distinct idempotency keys and exactly 1 confirmed event per order. Earlier role checks showed Napoli INSERT allowed, ReplayLab/Auth SELECT denied and anonymous schema access denied. Test rows are retained as smoke evidence. Local history additionally contains two historical demo orders; these are not backend duplicates.
+
+The backend persists the immutable order snapshot and initial confirmed event. Subsequent tracking is explicitly a browser simulation; local history is sanitized, bounded and device-local. This is not account sync or real courier tracking. The confirmation retention copy was corrected for server mode; no UI redesign or new dependency was introduced. Current local gate: typecheck/lint PASS, 33 files / 140 tests PASS, production build PASS. Credential remains only in the Napoli Vercel Production Secret; no paid resources or foreign processes/containers changed.
+
 ## Shared Free persistence — 2026-09-18 (production smoke blocked)
 
 The existing Free project now contains a separate `napoli` schema and restricted `napoli_api` role. Prior SQL privilege checks denied access to `public.replaylab_rooms` and `auth.users`; anonymous schema usage was denied. No shared service-role key is used. The owner assigned the role password manually; its URL was transferred directly to the Napoli Vercel Production Secret `NAPOLI_DATABASE_URL`, with `VITE_ORDER_API_MODE=server` as Production Config. No credential was written to local files or Git.

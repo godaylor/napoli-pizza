@@ -1014,6 +1014,8 @@ For every milestone, “done” means its user-visible path, resilience states, 
 
 ## Milestone 13 — Deployable server-side order persistence
 
+**Current status (2026-09-20): GREEN for the scoped guest snapshot + idempotency persistence.** TLS fix `5938534` is deployed, CI green, and hosted cart/checkout/order/refresh/recovery/tracking/history smoke passed. SQL confirms two test orders, two unique keys and one confirmed event per order. Tracking remains a demo simulation and history remains device-local; no account sync or real payment is claimed. Detailed evidence: `docs/RELEASE.md`. The pending/blocked notes below are historical.
+
 ### User-visible outcome
 
 The existing guest checkout remains unchanged, while a production configuration can persist successful orders and idempotent recovery on the server rather than relying only on one browser session.
