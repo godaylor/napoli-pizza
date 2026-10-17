@@ -2,7 +2,13 @@ import { describe, expect, it } from 'vitest';
 
 import { createBaseConfiguration } from '../../cart/model/cartSlice';
 import type { DemoOrderInput } from '../model/order.types';
-import { advanceTrackingClock, deriveTracking } from '../model/trackingEngine';
+import {
+  advanceTrackingClock,
+  deriveTracking,
+  replayTrackingClock,
+  setTrackingScenario,
+  TRACKING_STEP_MS,
+} from '../model/trackingEngine';
 import {
   ACTIVE_ORDER_SESSION_KEY,
   ACTIVE_ORDER_TTL_MS,
@@ -136,6 +142,133 @@ describe('M8 DemoOrderRepository', () => {
     expect(raw).not.toContain('Код домофона');
     expect(raw).not.toContain('Тверская, 22');
     expect(raw).toContain('"fulfillmentLabel":"Доставка"');
+    expect(JSON.parse(raw).orders[0].tracking).toEqual({
+      clockOffsetMs: 0,
+      elapsedFloorMs: 0,
+      scenario: 'default',
+    });
+  });
+
+  it.each(['delivery', 'pickup'] as const)(
+    'derives %s history without visiting tracking, including after the active session expires',
+    (mode) => {
+      const session = new MemoryStorage();
+      const local = new MemoryStorage();
+      let now = nowBase;
+      const repository = new DemoOrderRepository(session, local, () => now, () => 'nap_historyclock001');
+      const orderInput = input();
+      if (mode === 'pickup') {
+        orderInput.fulfillment = {
+          mode: 'pickup',
+          label: 'Napoli · самовывоз',
+          store: { id: 'napoli-centre', name: 'Napoli', address: 'Тверская, 22' },
+          time: { kind: 'asap' },
+        };
+        orderInput.quote = { ...orderInput.quote, fulfillmentMode: 'pickup' };
+      }
+      const order = repository.create(orderInput, 'idem-history-clock');
+      now += 4 * TRACKING_STEP_MS;
+      const reloaded = new DemoOrderRepository(session, local, () => now);
+      expect(reloaded.listHistory()[0].status).toBe(
+        mode === 'delivery' ? 'out_for_delivery' : 'ready_for_pickup',
+      );
+      // Reading history must not rewrite the active or server snapshot.
+      expect(reloaded.getActive(order.id)?.status).toBe('confirmed');
+
+      now = nowBase + ACTIVE_ORDER_TTL_MS + 1;
+      const expiredSession = new DemoOrderRepository(session, local, () => now);
+      expect(expiredSession.getActive(order.id)).toBeNull();
+      expect(expiredSession.listHistory()[0].status).toBe(
+        mode === 'delivery' ? 'delivered' : 'picked_up',
+      );
+    },
+  );
+
+  it('preserves manual clock progress, delay, cancellation and explicit replay in history', () => {
+    const session = new MemoryStorage();
+    const local = new MemoryStorage();
+    let now = nowBase;
+    const repository = new DemoOrderRepository(session, local, () => now, () => 'nap_scenariohist001');
+    const order = repository.create(input(), 'idem-scenario-history');
+    const advanced = advanceTrackingClock(order, now);
+    repository.updateTracking(order.id, { ...advanced, scenario: 'delayed' }, 'preparing');
+    now += TRACKING_STEP_MS;
+    const reloaded = new DemoOrderRepository(null, local, () => now);
+    expect(reloaded.listHistory()[0]).toMatchObject({
+      status: 'baking',
+      tracking: { scenario: 'delayed', clockOffsetMs: TRACKING_STEP_MS },
+    });
+
+    const current = repository.getActive(order.id)!;
+    repository.updateTracking(order.id, setTrackingScenario(current, 'cancelled'), 'cancelled');
+    now += 100 * TRACKING_STEP_MS;
+    expect(new DemoOrderRepository(null, local, () => now).listHistory()[0].status)
+      .toBe('cancelled');
+
+    repository.updateTracking(order.id, replayTrackingClock(current, now), 'confirmed');
+    expect(new DemoOrderRepository(null, local, () => now).listHistory()[0].status)
+      .toBe('confirmed');
+    now += TRACKING_STEP_MS;
+    expect(new DemoOrderRepository(null, local, () => now).listHistory()[0].status)
+      .toBe('preparing');
+  });
+
+  it('keeps the saved status while offline and catches up when observation resumes', () => {
+    const local = new MemoryStorage();
+    let now = nowBase;
+    const repository = new DemoOrderRepository(null, local, () => now, () => 'nap_offlinehist0001');
+    repository.create(input(), 'idem-offline-history');
+    now += 7 * TRACKING_STEP_MS;
+    expect(repository.listHistory({ advanceTracking: false })[0].status).toBe('confirmed');
+    expect(repository.listHistory()[0].status).toBe('delivered');
+  });
+
+  it('uses legacy active clock metadata when available and a saved-stage floor otherwise', () => {
+    const session = new MemoryStorage();
+    const local = new MemoryStorage();
+    let now = nowBase;
+    const repository = new DemoOrderRepository(session, local, () => now, () => 'nap_legacyclock001');
+    const order = repository.create(input(), 'idem-legacy-clock');
+    now += 100 * TRACKING_STEP_MS;
+    repository.updateTracking(order.id, replayTrackingClock(order, now), 'confirmed');
+    const envelope = JSON.parse(local.getItem(ORDER_HISTORY_STORAGE_KEY)!);
+    delete envelope.orders[0].tracking;
+    local.setItem(ORDER_HISTORY_STORAGE_KEY, JSON.stringify(envelope));
+    expect(new DemoOrderRepository(session, local, () => now).listHistory()[0].status)
+      .toBe('confirmed');
+
+    envelope.orders[0].status = 'out_for_delivery';
+    local.setItem(ORDER_HISTORY_STORAGE_KEY, JSON.stringify(envelope));
+    now = nowBase - TRACKING_STEP_MS;
+    expect(new DemoOrderRepository(null, local, () => now).listHistory()[0].status)
+      .toBe('out_for_delivery');
+    now = nowBase + 7 * TRACKING_STEP_MS;
+    expect(new DemoOrderRepository(null, local, () => now).listHistory()[0].status)
+      .toBe('delivered');
+  });
+
+  it('keeps terminal legacy and seeded statuses and rejects malformed tracking metadata', () => {
+    const local = new MemoryStorage();
+    const repository = new DemoOrderRepository(null, local, () => nowBase, () => 'nap_legacyterminal');
+    repository.create(input(), 'idem-legacy-terminal');
+    const envelope = JSON.parse(local.getItem(ORDER_HISTORY_STORAGE_KEY)!);
+    const template = envelope.orders[0];
+    delete template.tracking;
+    envelope.orders = [
+      { ...template, id: 'nap_cancelled', status: 'cancelled' },
+      { ...template, id: 'nap_delivered', status: 'delivered' },
+      { ...template, id: 'nap_pickedup', status: 'picked_up', fulfillmentMode: 'pickup' },
+      { ...template, id: 'nap_seeded', source: 'seeded-demo', status: 'confirmed' },
+      { ...template, id: 'nap_malformed', tracking: { clockOffsetMs: 0, elapsedFloorMs: 'broken', scenario: 'default' } },
+    ];
+    local.setItem(ORDER_HISTORY_STORAGE_KEY, JSON.stringify(envelope));
+    expect(new DemoOrderRepository(null, local, () => nowBase + 100_000).listHistory()
+      .map(({ id, status }) => ({ id, status }))).toEqual([
+      { id: 'nap_cancelled', status: 'cancelled' },
+      { id: 'nap_delivered', status: 'delivered' },
+      { id: 'nap_pickedup', status: 'picked_up' },
+      { id: 'nap_seeded', status: 'confirmed' },
+    ]);
   });
 
   it('bounds history, expires old entries and reads the known v0 envelope', () => {

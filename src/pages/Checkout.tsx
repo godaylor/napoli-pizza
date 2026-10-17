@@ -869,6 +869,11 @@ export default function Checkout() {
             <p>
               {t('Это demo payment. Мы не запрашиваем номер карты, срок действия, PAN или CVC и не подключаем платёжного провайдера.', 'This is a demo payment. We do not request a card number, expiry date, PAN, or CVC, and no payment provider is connected.')}
             </p>
+            <p id="order-data-notice" className={styles.paymentHint}>
+              {import.meta.env.VITE_ORDER_API_MODE === 'server'
+                ? t('Используйте вымышленные контакты и адрес. При оформлении заказ и эти данные сохраняются на сервере без автоматического удаления. 24 часа — срок копии во вкладке; история устройства не содержит контактов и адреса.', 'Use made-up contact details and an address. Placing the order saves it and these details on the server without automatic deletion. The copy in this tab lasts up to 24 hours; device history excludes contact details and the address.')
+                : t('Используйте вымышленные контакты и адрес. В демо-режиме они сохраняются только в этой вкладке до 24 часов и не попадают в историю заказов.', 'Use made-up contact details and an address. In demo mode they stay only in this tab for up to 24 hours and are excluded from order history.')}
+            </p>
             <label className={styles.paymentScenario}>
               <span>{t('Исход demo payment', 'Demo payment outcome')}</span>
               <select
@@ -887,6 +892,7 @@ export default function Checkout() {
             <button
               type="button"
               className={styles.payButton}
+              aria-describedby="order-data-notice"
               onClick={() => void submitPayment()}
               disabled={
                 !finalQuoteReady ||

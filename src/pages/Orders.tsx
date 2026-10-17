@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useGetMenuQuery } from '../features/catalog/api/catalogApi';
@@ -49,7 +49,9 @@ export default function Orders() {
   const repository = getDemoOrderRepository();
   const dispatch = useAppDispatch();
   const cartCount = useAppSelector(selectCartCount);
-  const [history, setHistory] = useState(() => repository.listHistory());
+  const [history, setHistory] = useState(() => repository.listHistory({
+    advanceTracking: typeof navigator === 'undefined' || navigator.onLine,
+  }));
   const [selectedOrder, setSelectedOrder] = useState<SanitizedOrderHistoryEntry | null>(null);
   const [selectedLineKeys, setSelectedLineKeys] = useState(() => new Set<string>());
   const [scenario, setScenario] = useState<RepeatScenario>('default');
@@ -60,6 +62,13 @@ export default function Orders() {
     scenario: 'default',
     locale,
   });
+
+  useEffect(() => {
+    const refreshHistory = () => setHistory(repository.listHistory());
+    window.addEventListener('online', refreshHistory);
+    return () => window.removeEventListener('online', refreshHistory);
+  }, [repository]);
+
   const localizeHistoryName = (productId: string, fallback: string) => {
     const product = CATALOG_PRODUCTS.find((item) => item.id === productId);
     return product ? localizeCatalogProduct(product, locale).name : localizeOrderLabel(fallback, locale);

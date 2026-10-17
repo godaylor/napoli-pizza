@@ -71,6 +71,7 @@ export interface SanitizedOrderHistoryEntry {
   id: string;
   status: DemoOrderStatus;
   createdAt: string;
+  tracking?: DemoOrderTracking;
   lines: FinalQuoteSnapshot['lines'];
   subtotalMinor: number;
   discountMinor: number;

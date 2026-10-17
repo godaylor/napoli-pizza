@@ -1,5 +1,7 @@
 # Napoli product transformation plan
 
+Post-release corrections (2026-10-18): fix intermediate-width header overlap and classic-scrollbar 320 px overflow without redesign; derive history status on read through the existing tracking engine; disclose server persistence before checkout submission. The menu 200% text check now applies enlargement to the current document. New responsive regressions cover RU/EN, populated counters, 640/667/700/768 boundaries and a real reserved scrollbar. Verification/publication evidence is recorded in `docs/RELEASE.md`; VPN-off verification remains deferred by the owner.
+
 Canonical publication (2026-09-10): preserve the React Pizza history in `godaylor/napoli-pizza` and append the final Napoli imagery/release commits by fast-forward. Keep `napoli-pizza-archive` unchanged and reconnect the existing Vercel project/domain. Local gate: typecheck, lint, 132 unit/integration tests, build and 138 browser checks PASS (2 intentional skips). Details and hosted follow-up: docs/RELEASE.md.
 
 Menu image update (2026-09-10): 36 distinct product photographs now replace the shared category bindings. Three suitable originals remain active; 33 generated masters include the three user-approved previews unchanged. All earlier assets and product business data are preserved. See docs/MENU-IMAGE-REVIEW.md for correspondence and generation records.

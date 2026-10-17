@@ -1,16 +1,55 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import {
+  getDemoOrderRepository,
+  ORDER_HISTORY_STORAGE_KEY,
+} from '../features/order/persistence/DemoOrderRepository';
 import { setupStore } from '../redux/store';
 import Orders from './Orders';
 
 describe('Orders', () => {
   beforeEach(() => {
+    getDemoOrderRepository().clearHistory();
     localStorage.clear();
     sessionStorage.clear();
+  });
+
+  it('shows the saved status offline and catches up on reconnect without visiting tracking', async () => {
+    let online = false;
+    vi.spyOn(navigator, 'onLine', 'get').mockImplementation(() => online);
+    localStorage.setItem(ORDER_HISTORY_STORAGE_KEY, JSON.stringify({
+      schemaVersion: 1,
+      savedAt: new Date().toISOString(),
+      orders: [{
+        id: 'nap_offlinehistory',
+        source: 'order',
+        status: 'confirmed',
+        createdAt: new Date(Date.now() - 120_000).toISOString(),
+        tracking: { clockOffsetMs: 0, elapsedFloorMs: 0, scenario: 'default' },
+        lines: [],
+        subtotalMinor: 59000,
+        discountMinor: 0,
+        feeMinor: 19900,
+        totalMinor: 78900,
+        promoCode: null,
+        fulfillmentMode: 'delivery',
+        fulfillmentLabel: 'Доставка',
+      }],
+    }));
+    render(
+      <MemoryRouter initialEntries={['/orders']}>
+        <Provider store={setupStore()}><Orders /></Provider>
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText('Заказ принят')).toBeInTheDocument();
+    online = true;
+    act(() => window.dispatchEvent(new Event('online')));
+    expect(await screen.findByText('Доставлен')).toBeInTheDocument();
+    expect(screen.queryByText('Заказ принят')).not.toBeInTheDocument();
   });
 
   it('labels seeded data, reviews current offer and merges only after confirmation', async () => {

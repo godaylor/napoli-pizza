@@ -1,6 +1,16 @@
 <!-- generated-by: gsd-doc-writer -->
 # Release verification
 
+## Post-release corrections — 2026-10-18 — local gate PASS
+
+Four focused corrections preserve the existing visual system: navigation gets its own row at 640–767 px; root elements fit the available width beside a classic scrollbar; sanitized history derives demo status on read through the existing tracking engine; server-mode checkout explains persistence before submission, with RU/EN copy linked to the payment action. Server rows still have no automatic deletion; the 24-hour boundary describes only the active tab copy. No database permissions, schema, immutable server snapshots, paid resource or foreign project/process was changed.
+
+Node 24.19.0 verification: typecheck PASS, zero-warning lint PASS, 33 files / 149 unit-integration tests PASS, production build PASS (146 modules). Final three-engine Playwright run completed cleanly: 156 PASS / 4 intentional skips, 3.4 minutes. Chromium 390/1440, Firefox 1440 and WebKit 390 cover existing journeys/Axe/keyboard plus RU/EN header counters at 640×360, 667×375, 700×400 and 768×1024. Chromium additionally checks a real reserved 15 px scrollbar at 320×568; the other engines skip that platform-specific assertion. The two other skips are the existing Chromium-only raw-Tab cases. The menu text-enlargement test now applies and verifies actual 200% text in the current document.
+
+The first sandbox run could not create Firefox pages and stalled while cleaning up its own preview; an unrestricted single test confirmed the environment cause. The final full run used Napoli-only port 32505 and an isolated `artifacts/playwright-browsers` cache. Only the verified preview from the completed first Napoli run was stopped; no process was stopped to take an occupied port. `NAPOLI_E2E_PORT` now supports choosing another strict test port without reusing another project's server. Generated artifacts are excluded from ESLint and Git.
+
+Publication target remains the existing `maxeem/napoli-pizza` Production project and `napoli-pizza-tau.vercel.app`, branch `master`. Check the published commit's CI/deployment and public runtime after updating that branch; no new hosting project or credentials are needed. VPN-off verification is explicitly deferred by the owner. Original review and screenshots: `QUALITY_REVIEW_2026-10-18.md` and local ignored `artifacts/review-2026-10-18/`.
+
 ## Production persistence smoke — 2026-09-20 — PASS
 
 TLS fix `5938534` is Production/Ready in Vercel (`HHgFF54AviUwJkQsnyYm476CDmV5`, also `6r4k4LBGQRrCskvwGrdgzEHL4ShV`), with green GitHub CI run `35390782086`. The original 502 was `SELF_SIGNED_CERT_IN_CHAIN`; the server now trusts the official Supabase Root 2021 CA while retaining certificate and hostname verification. No SSL enforcement setting or shared database setting was changed.

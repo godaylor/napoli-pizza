@@ -288,3 +288,18 @@
     justify-self: end;
   }
 }
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .navigation {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .searchSlot {
+    grid-row: 3;
+  }
+}

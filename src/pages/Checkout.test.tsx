@@ -2,13 +2,15 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import App from '../App';
 import { cartConfigurationFingerprint } from '../features/cart/model/cartConfiguration';
 import type { CartConfiguration } from '../features/cart/model/cart.types';
 import { saveCart, type StorageLike } from '../features/cart/persistence/cartPersistence';
 import { setupStore } from '../redux/store';
+import { LocaleProvider } from '../shared/i18n/LocaleProvider';
+import { LOCALE_STORAGE_KEY } from '../shared/i18n/locale';
 
 class MemoryStorage implements StorageLike {
   values = new Map<string, string>();
@@ -49,9 +51,11 @@ const renderCheckout = (
     storage,
     ...render(
       <BrowserRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
-        <Provider store={setupStore({ storage })}>
-          <App />
-        </Provider>
+        <LocaleProvider>
+          <Provider store={setupStore({ storage })}>
+            <App />
+          </Provider>
+        </LocaleProvider>
       </BrowserRouter>,
     ),
   };
@@ -126,6 +130,43 @@ describe('M6A guest delivery checkout', () => {
     renderCheckout(false);
     expect(await screen.findByRole('heading', { name: 'Корзина не готова к оформлению' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Вернуться в корзину' })).toHaveAttribute('href', '/cart');
+  });
+});
+
+describe('checkout data disclosure before placing an order', () => {
+  beforeEach(() => {
+    window.sessionStorage.clear();
+    window.localStorage.clear();
+  });
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    window.localStorage.removeItem(LOCALE_STORAGE_KEY);
+  });
+
+  it('explains server storage and its retention boundary before submission in both languages', async () => {
+    vi.stubEnv('VITE_ORDER_API_MODE', 'server');
+    const user = userEvent.setup();
+    renderCheckout();
+    await screen.findByRole('heading', { name: 'Доставка', level: 1 });
+    const payment = screen.getByRole('region', { name: 'Безопасная симуляция оплаты' });
+    const action = within(payment).getByRole('button', { name: 'Сначала подтвердите итог' });
+    expect(action).toHaveAccessibleDescription(/Используйте вымышленные контакты и адрес/);
+    expect(action).toHaveAccessibleDescription(/на сервере без автоматического удаления/);
+    expect(action).toHaveAccessibleDescription(/24 часа — срок копии во вкладке/);
+
+    await user.click(screen.getByRole('button', { name: 'EN' }));
+    const englishAction = await screen.findByRole('button', { name: 'Confirm the total first' });
+    expect(englishAction).toHaveAccessibleDescription(/server without automatic deletion/);
+    expect(englishAction).toHaveAccessibleDescription(/copy in this tab lasts up to 24 hours/);
+  });
+
+  it('keeps the local demo disclosure honest when server mode is disabled', async () => {
+    vi.stubEnv('VITE_ORDER_API_MODE', 'demo');
+    renderCheckout();
+    await screen.findByRole('heading', { name: 'Доставка', level: 1 });
+    const action = screen.getByRole('button', { name: 'Сначала подтвердите итог' });
+    expect(action).toHaveAccessibleDescription(/только в этой вкладке до 24 часов/);
+    expect(action).not.toHaveAccessibleDescription(/на сервере/);
   });
 });
 describe('M6B pickup, scheduling and recovery', () => {

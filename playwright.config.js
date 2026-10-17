@@ -1,5 +1,11 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const port = Number(process.env.NAPOLI_E2E_PORT ?? 32501);
+if (!Number.isInteger(port) || port < 1024 || port > 65535) {
+  throw new Error('NAPOLI_E2E_PORT must be an integer from 1024 to 65535.');
+}
+const baseURL = `http://127.0.0.1:${port}`;
+
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
@@ -7,7 +13,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
-    baseURL: 'http://127.0.0.1:32501',
+    baseURL,
     trace: 'retain-on-failure',
   },
   projects: [
@@ -41,8 +47,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `"${process.execPath}" node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port 32501 --strictPort`,
-    url: 'http://127.0.0.1:32501',
+    command: `"${process.execPath}" node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port ${port} --strictPort`,
+    url: baseURL,
     reuseExistingServer: false,
     timeout: 120_000,
   },

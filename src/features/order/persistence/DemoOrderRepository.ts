@@ -6,6 +6,7 @@ import type {
   DemoTrackingScenario,
   SanitizedOrderHistoryEntry,
 } from '../model/order.types';
+import { deriveTracking, getTrackingSequence } from '../model/trackingEngine';
 
 export const ACTIVE_ORDER_SESSION_KEY = 'napoli:active-order:v1';
 export const ORDER_HISTORY_STORAGE_KEY = 'napoli:order-history:v1';
@@ -115,6 +116,7 @@ const isHistoryEntry = (
     (value.promoCode === null || typeof value.promoCode === 'string') &&
     (value.fulfillmentMode === 'delivery' || value.fulfillmentMode === 'pickup') &&
     typeof value.fulfillmentLabel === 'string' &&
+    (!('tracking' in value) || isTracking(value.tracking)) &&
     (value.source === undefined || value.source === 'order' || value.source === 'seeded-demo')
   );
 };
@@ -124,6 +126,11 @@ const sanitizeOrder = (order: DemoOrder): SanitizedOrderHistoryEntry => ({
   id: order.id,
   status: order.status,
   createdAt: order.createdAt,
+  tracking: {
+    clockOffsetMs: order.tracking.clockOffsetMs,
+    elapsedFloorMs: order.tracking.elapsedFloorMs,
+    scenario: order.tracking.scenario,
+  },
   lines: order.quote.lines,
   subtotalMinor: order.quote.subtotalMinor,
   discountMinor: order.quote.discountMinor,
@@ -327,8 +334,9 @@ export class DemoOrderRepository {
     return entry;
   }
 
-  listHistory(): SanitizedOrderHistoryEntry[] {
-    const cutoff = this.now() - ORDER_HISTORY_TTL_MS;
+  listHistory({ advanceTracking = true } = {}): SanitizedOrderHistoryEntry[] {
+    const now = this.now();
+    const cutoff = now - ORDER_HISTORY_TTL_MS;
     let persisted: SanitizedOrderHistoryEntry[] = [];
     if (this.localStorage) {
       try {
@@ -362,7 +370,36 @@ export class DemoOrderRepository {
     return [...byId.values()]
       .filter((entry) => Date.parse(entry.createdAt) >= cutoff)
       .sort((left, right) => Date.parse(right.createdAt) - Date.parse(left.createdAt))
-      .slice(0, ORDER_HISTORY_LIMIT);
+      .slice(0, ORDER_HISTORY_LIMIT)
+      .map((entry) => advanceTracking ? this.withCurrentStatus(entry, now) : entry);
+  }
+
+  private withCurrentStatus(
+    entry: SanitizedOrderHistoryEntry,
+    now: number,
+  ): SanitizedOrderHistoryEntry {
+    if (
+      entry.source === 'seeded-demo' ||
+      ['delivered', 'picked_up', 'cancelled'].includes(entry.status)
+    ) return entry;
+
+    const tracking = entry.tracking ?? this.getActive(entry.id)?.tracking;
+    // Older history has no clock metadata. Use its saved stage as a floor for
+    // the original timestamp-based demo route instead of rewinding on clock skew.
+    const clock = tracking ?? {
+      clockOffsetMs: 0,
+      elapsedFloorMs: getTrackingSequence(entry.fulfillmentMode)
+        .find((step) => step.status === entry.status)?.atMs ?? 0,
+      scenario: 'default' as const,
+    };
+    return {
+      ...entry,
+      status: deriveTracking({
+        createdAt: entry.createdAt,
+        fulfillment: { mode: entry.fulfillmentMode },
+        tracking: clock,
+      }, now).status,
+    };
   }
 
   private isActive(order: DemoOrder) {
@@ -378,7 +415,7 @@ export class DemoOrderRepository {
     try {
       const orders = [
         entry,
-        ...this.listHistory().filter((item) => item.id !== entry.id),
+        ...this.listHistory({ advanceTracking: false }).filter((item) => item.id !== entry.id),
       ].slice(0, ORDER_HISTORY_LIMIT);
       const envelope: HistoryEnvelope = {
         schemaVersion: 1,

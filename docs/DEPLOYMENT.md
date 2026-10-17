@@ -19,6 +19,8 @@ npm run build
 
 Artifact — `dist/`. GitHub workflow выполняет quality/build/E2E, но deploy job в репозитории отсутствует; публикация остаётся отдельным hosting action.
 
+Для параллельных локальных проверок можно задать `NAPOLI_E2E_PORT` (например, `32505`). По умолчанию остаётся `32501`; runner использует strict port и не переиспользует чужой сервер. При занятом порту выбирайте другой свободный порт Napoli, не завершайте чужие процессы. Кеш браузеров также можно изолировать через `PLAYWRIGHT_BROWSERS_PATH` в игнорируемой папке `artifacts/` проекта.
+
 ## Environment setup
 
 Demo production не требует environment variables. Server mode требует `SUPABASE_URL`, `SUPABASE_SECRET_KEY` и client-safe `VITE_ORDER_API_MODE=server`; полный контракт — в [CONFIGURATION.md](CONFIGURATION.md).

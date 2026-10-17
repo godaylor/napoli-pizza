@@ -670,3 +670,9 @@ This extension deliberately does not add account sync, real card collection, cou
 
 The current deployment replaces the dedicated-project REST credential with `NAPOLI_DATABASE_URL` for the restricted `napoli_api` role, via the transaction pooler. Only `napoli.orders` and `napoli.order_events` are granted SELECT/INSERT; RLS is enabled and no Auth/ReplayLab grants are added. Snapshot and confirmed event commit atomically. The original public-table REST migration remains a dedicated-project alternative, not the shared deployment setup. Compute and quotas remain shared. No account sync or backend-driven courier tracking is introduced. Production runtime smoke passed on 2026-09-20; see RELEASE.md. The server bundles the official public Supabase CA and keeps TLS certificate/hostname verification enabled.
 
+### Post-release consistency corrections (2026-10-18)
+
+Sanitized history now optionally retains only the safe demo clock metadata (`clockOffsetMs`, `elapsedFloorMs`, `scenario`). On online reads it derives the displayed status through the same tracking engine as the tracking route, including after the 24-hour active-session snapshot expires. Offline reads retain the saved status; reconnect refreshes history once. This does not write server snapshots or status events, add a polling timer, or persist contact/address data in history. Legacy entries without clock metadata use a matching active snapshot when available, otherwise the original timestamp route with their saved stage as a floor. Known terminal/cancelled and seeded records remain unchanged.
+
+Server-mode checkout discloses before order submission that order/contact/address data is persisted without automatic deletion. The 24-hour retention refers only to the active tab copy, not to server rows. Demo-mode copy remains local-only. No database retention job, permission or shared-project setting is changed by this correction.
+

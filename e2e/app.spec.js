@@ -182,7 +182,10 @@ test('keeps skip navigation, tablet geometry, reduced motion and 200 percent tex
   expect(searchBox.y).toBeGreaterThanOrEqual(navigation.y + navigation.height);
 
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.addInitScript(() => { document.documentElement.style.fontSize = '200%'; });
+  const originalFontSize = await page.locator('html').evaluate((element) => parseFloat(getComputedStyle(element).fontSize));
+  await page.locator('html').evaluate((element) => { element.style.fontSize = '200%'; });
+  await expect.poll(() => page.locator('html').evaluate((element) => parseFloat(getComputedStyle(element).fontSize)))
+    .toBe(originalFontSize * 2);
   const dimensions = await page.evaluate(() => ({ clientWidth: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth);
   await expect(page.getByRole('heading', { name: 'Меню', level: 1, exact: true })).toBeVisible();
