@@ -2,13 +2,13 @@
   position: relative;
   z-index: 10;
   border-bottom: 1px solid var(--color-steel);
-  background: color-mix(in srgb, var(--color-porcelain) 94%, white);
+  background: var(--color-porcelain);
 }
 
 .rail {
   min-height: 32px;
-  background: var(--color-carbon);
-  color: var(--color-porcelain);
+  background: var(--color-rail-bg);
+  color: var(--color-rail-text);
   font-family: var(--font-utility);
   font-size: 0.6875rem;
   font-weight: 600;
@@ -31,6 +31,13 @@
   align-items: center;
   gap: var(--space-2);
   color: #d8efe2;
+}
+
+.preferences {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .kitchenStatus > span {
@@ -175,8 +182,8 @@
 }
 
 .cartLink:hover {
-  border-color: var(--color-cobalt-dark) !important;
-  background: var(--color-cobalt-dark) !important;
+  border-color: var(--color-action-hover) !important;
+  background: var(--color-action-hover) !important;
 }
 
 .cartLink svg {
@@ -260,6 +267,12 @@
   }
 
   .navigation {
+    display: none;
+  }
+}
+
+@media (max-width: 479px) {
+  .kitchenStatus {
     display: none;
   }
 }

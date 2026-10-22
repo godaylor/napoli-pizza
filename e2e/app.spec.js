@@ -217,7 +217,7 @@ test('metadata assets resolve and browser console remains clean', async ({ page,
   await page.goto('/menu');
   await expect(page.getByText('Маргарита Napoli')).toBeVisible();
   await expect(page.locator('html')).toHaveAttribute('lang', 'ru');
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#17191d');
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#f6f3ec');
   expect(messages).toEqual([]);
 });
 
@@ -325,7 +325,7 @@ test('M4A completes the lazy product-to-cart journey and preserves discovery sta
   await expect.poll(() => requests.some((url) => /\/assets\/Cart-[^/]+\.js/.test(url))).toBe(true);
   await expect(page.getByRole('heading', { name: 'Корзина', level: 1 })).toBeVisible();
   await expect(page.getByText('30 см · Традиционное тесто · 560 г')).toBeVisible();
-  await expect(page.getByText('Количество').locator('..')).toContainText('2');
+  await expect(page.getByText('Количество', { exact: true }).locator('..')).toContainText('2');
   await expect(page.getByLabel('Сумма корзины')).toContainText('1 580 ₽');
   await page.getByRole('link', { name: 'Продолжить выбор' }).click();
   await expect(page).toHaveURL(/\/menu\?q=%D0%BC%D0%B0%D1%80%D0%B3%D0%B0%D1%80%D0%B8%D1%82%D0%B0&category=pizza$/);
@@ -487,7 +487,7 @@ test('M5A persists, edits and safely recovers the cart', async ({ page }) => {
   await page.getByRole('button', { name: 'Увеличить количество Пепперони Napoli' }).click();
   await expect(page.getByLabel('Количество Пепперони Napoli').locator('output')).toHaveText('2');
 
-  await page.getByRole('link', { name: 'Изменить конфигурацию' }).click();
+  await page.getByRole('link', { name: 'Изменить состав' }).click();
   await expect(page.getByRole('radio', { name: /25 см/ })).toBeChecked();
   await page.getByRole('radio', { name: /30 см/ }).click();
   await page.getByRole('button', { name: 'Сохранить изменения за 990 ₽' }).click();
@@ -575,7 +575,7 @@ test('M6A completes guest delivery quote and preserves recovery draft', async ({
   await expect(page.getByText('Введите имя.')).toBeVisible();
 
   await name.fill('Анна');
-  await page.getByText('Проверить delivery recovery').click();
+  await page.getByText('Демо-сценарии доставки').click();
   const scenario = page.getByRole('combobox', { name: 'Демо-сценарий' });
   await scenario.selectOption('unserviceable');
   await page.getByRole('button', { name: 'Проверить адрес' }).click();
@@ -638,7 +638,7 @@ test('M6B switches fulfillment, schedules and recovers stale quotes', async ({ p
   await page.getByRole('button', { name: 'Повторить расчёт' }).click();
   await expect(page.getByText('Самовывоз подтверждён').locator('..')).toContainText('Завтра, 13:00–13:30');
 
-  await page.getByText('Проверить delivery recovery').click();
+  await page.getByText('Демо-сценарии доставки').click();
   const scenario = page.getByRole('combobox', { name: 'Демо-сценарий' });
   await scenario.selectOption('closed-store');
   await page.getByRole('button', { name: 'Повторить расчёт' }).click();
@@ -689,7 +689,7 @@ test('M7 applies authoritative promo totals and requires refresh acknowledgement
   await expect(page.getByText(/Промокод EXPIRED22 истёк/)).toBeVisible();
 
   await promo.fill('NAPOLI10');
-  await page.getByText('Демо-коды и promo recovery').click();
+  await page.getByText('Демо-промокоды и сценарии').click();
   const finalScenario = page.getByRole('combobox', {
     name: 'Сценарий финального расчёта',
   });
@@ -771,10 +771,10 @@ test('M8 declines safely, retries once and reloads the private active confirmati
   const email = await page.getByRole('textbox', { name: 'Email · необязательно' }).inputValue();
   await page.getByRole('textbox', { name: 'Комментарий курьеру' }).fill('M8 private note');
 
-  const outcome = page.getByRole('combobox', { name: 'Исход demo payment' });
+  const outcome = page.getByRole('combobox', { name: 'Сценарий оплаты' });
   await outcome.selectOption('decline');
   await page.getByRole('button', { name: /Оплатить .* и оформить/ }).click();
-  await expect(page.getByRole('alert')).toContainText('Demo payment отклонён');
+  await expect(page.getByRole('alert')).toContainText('Демо-оплата отклонена');
   await expect(page.getByText('Финальный итог подтверждён')).toBeVisible();
 
   await outcome.selectOption('success');
@@ -816,7 +816,7 @@ test('M8 declines safely, retries once and reloads the private active confirmati
 
 test('M8 recovers timeout-after-create by idempotency key without a duplicate order', async ({ page }) => {
   await prepareM8Order(page);
-  await page.getByRole('combobox', { name: 'Исход demo payment' }).selectOption('timeout-after-create');
+  await page.getByRole('combobox', { name: 'Сценарий оплаты' }).selectOption('timeout-after-create');
   await page.getByRole('button', { name: /Оплатить .* и оформить/ }).click();
   await expect(page.getByRole('heading', { name: 'Заказ подтверждён', level: 1 })).toBeVisible();
 

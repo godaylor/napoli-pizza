@@ -1,0 +1,45 @@
+.button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid rgb(246 243 236 / 28%);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-rail-text);
+  font: 600 0.6875rem var(--font-utility);
+  cursor: pointer;
+  transition: background-color var(--motion-fast) var(--ease-out);
+}
+
+.button:hover {
+  background: rgb(246 243 236 / 12%);
+}
+
+.button:focus-visible {
+  outline-color: #a9bdff;
+}
+
+.button svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 479px) {
+  .button {
+    padding: 8px;
+  }
+
+  .button span {
+    display: none;
+  }
+}

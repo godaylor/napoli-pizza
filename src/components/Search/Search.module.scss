@@ -28,8 +28,8 @@
 }
 
 .input:focus {
-  border-color: var(--color-cobalt);
-  background: white;
+  border-color: var(--color-focus-ring);
+  background: var(--color-surface);
   box-shadow: 0 0 0 4px var(--color-cobalt-soft);
 }
 

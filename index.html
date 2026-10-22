@@ -8,7 +8,22 @@
       content="Napoli — городская пиццерия с понятным меню, быстрой доставкой и самовывозом."
     />
     <meta name="theme-color" content="#17191d" />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      (() => {
+        let preference = 'system';
+        try {
+          const stored = JSON.parse(localStorage.getItem('napoli:theme:v1') || 'null');
+          if (stored?.schemaVersion === 1 && ['light', 'dark', 'system'].includes(stored.preference)) {
+            preference = stored.preference;
+          }
+        } catch { /* The system theme also works when storage is unavailable. */ }
+        const dark = preference === 'dark' || (preference === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+        document.querySelector('meta[name="theme-color"]').content = dark ? '#14171d' : '#f6f3ec';
+      })();
+    </script>
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:site_name" content="Napoli" />
     <meta property="og:title" content="Napoli" />

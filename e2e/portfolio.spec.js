@@ -15,7 +15,8 @@ test('English pickup keeps distinct configurations, correct hours and translated
   await page.getByRole('checkbox', { name: /^Remove / }).first().check();
   await page.getByRole('button', { name: /^Add for/ }).click();
   await page.getByRole('link', { name: 'Open cart', exact: true }).click();
-  await page.goto('/checkout');
+  await expect(page.getByRole('heading', { name: 'Cart', level: 1, exact: true })).toBeVisible();
+  await page.getByRole('link', { name: 'Checkout', exact: true }).click();
   await page.getByRole('radio', { name: /Pickup/ }).first().check();
   await expect(page.getByText('Daily 10:00–23:00')).toBeVisible();
   await page.getByRole('combobox', { name: 'Pizzeria', exact: true }).selectOption('store-kurskaya');

@@ -1,5 +1,13 @@
 # Target architecture
 
+## Implemented appearance refinement — 2026-10-23
+
+The shell owns a small `light | dark | system` preference in `napoli:theme:v1` (`schemaVersion: 1`). It is independent of Redux, catalog filters and checkout data. A guarded pre-paint initializer applies the resolved theme; the header follows device changes in system mode and updates native color-scheme/theme-color. Denied or malformed storage falls back to system settings. Semantic CSS tokens distinguish readable accent text, filled actions and inverse surfaces in both palettes.
+
+Motion is progressive enhancement: visible content by default, one-time 12 px section translation on intersection, a short route opacity transition without remounting forms, and decorative oven-ring entrance. Focus and reduced-motion cancel optional motion. There are no continuous decorative loops or new animation dependencies. New path navigation scrolls to the top; query changes are untouched and browser Back/Forward keeps native restoration. The menu hero reuses an existing local licensed asset. Reviewer-only catalog controls remain available below the menu; the footer explicitly identifies demo ordering.
+
+The original target specification follows; implemented milestone supplements remain authoritative for current behavior.
+
 Статус: proposed
 
 Принцип: frontend-first consumer product, не enterprise platform.

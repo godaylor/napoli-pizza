@@ -32,7 +32,7 @@ describe('ProductCard', () => {
     expect(screen.getByText('от 590 ₽')).toBeInTheDocument();
     expect(screen.getByText('глютен, молоко')).toBeInTheDocument();
     expect(screen.getByText('Хит')).toBeInTheDocument();
-    expect(screen.getByText('Открыть')).toBeInTheDocument();
+    expect(screen.getByText('Выбрать')).toBeInTheDocument();
 
     const image = screen.getByRole('img', { name: /Пицца Маргарита/ });
     expect(image).toHaveAttribute('width', '960');

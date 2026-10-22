@@ -257,7 +257,7 @@ export default function Checkout() {
         saveCheckoutSession(storage, normalizedFields);
         setSessionWarning('');
       } catch {
-        setSessionWarning(t('Не удалось сохранить checkout draft. Поля останутся только до reload.', 'Could not save the checkout draft. Fields will remain only until reload.'));
+        setSessionWarning(t('Не удалось сохранить заполненные поля. Они останутся доступны до обновления страницы.', 'Could not save your details. They remain available until you refresh the page.'));
       }
     }, 120);
     return () => window.clearTimeout(timeout);
@@ -276,7 +276,7 @@ export default function Checkout() {
     };
     const handleOnline = () => {
       setIsOnline(true);
-      setRecoveryMessage(t('Соединение восстановлено. Безопасно обновляем только расчёт получения.', 'Connection restored. Refreshing the fulfillment quote safely.'));
+      setRecoveryMessage(t('Соединение восстановлено. Уточняем время и стоимость получения.', 'Connection restored. Updating the timing and delivery cost.'));
       if (quoteState.data || apiError?.data.code === 'offline') {
         void createQuote(request);
       }
@@ -439,7 +439,7 @@ export default function Checkout() {
       if (!isPaymentOrderError(error)) {
         paymentDispatch({
           type: 'fail',
-          message: t('Не удалось завершить demo payment. Повторите вручную.', 'Could not complete the demo payment. Retry manually.'),
+          message: t('Не удалось завершить демо-оплату. Попробуйте ещё раз.', 'Could not complete the demo payment. Try again.'),
         });
       } else if (error.code === 'ambiguous') {
         paymentDispatch({ type: 'ambiguous' });
@@ -469,9 +469,9 @@ export default function Checkout() {
   if (lines.length === 0 || blockingIssues.length > 0) {
     return (
       <section className="container route-status">
-        <span className="status-code">CHECK / NAP</span>
+        <span className="status-code">{t('Проверьте корзину', 'Check your cart')}</span>
         <h1>{t('Корзина не готова к оформлению', 'Cart is not ready for checkout')}</h1>
-        <p>{lines.length === 0 ? t('Добавьте позиции перед checkout.', 'Add items before checkout.') : t('Исправьте недоступные позиции в корзине.', 'Fix unavailable items in the cart.')}</p>
+        <p>{lines.length === 0 ? t('Добавьте блюда из меню, чтобы оформить заказ.', 'Add items from the menu to place an order.') : t('Исправьте недоступные позиции в корзине.', 'Fix unavailable items in the cart.')}</p>
         <Link className="primary-link" to="/cart">{t('Вернуться в корзину', 'Back to cart')}</Link>
       </section>
     );
@@ -489,10 +489,10 @@ export default function Checkout() {
     <div className={['container', styles.page].join(' ')}>
       <header className={styles.heading}>
         <div>
-          <span className="eyebrow">Guest checkout / Napoli</span>
+          <span className="eyebrow">{t('Оформление заказа', 'Checkout')} / Napoli</span>
           <h1>{fulfillment.mode === 'delivery' ? t('Доставка', 'Delivery') : t('Самовывоз', 'Pickup')}</h1>
           <p>
-            {t('Регистрация не нужна. Доступность и время проверяет локальный демо-адаптер Napoli.', 'No registration required. Napoli’s local demo adapter checks availability and timing.')}
+            {t('Регистрация не нужна. Выберите способ получения и проверьте итог. Это демо-заказ: деньги не списываются, доставка не выполняется.', 'No registration required. Choose how to receive your order and check the total. This is a demo: no charge or actual delivery takes place.')}
           </p>
         </div>
         <Link className="secondary-link" to="/cart">{t('Изменить корзину', 'Edit cart')}</Link>
@@ -504,7 +504,7 @@ export default function Checkout() {
       <div className={styles.layout}>
         <form className={styles.form} onSubmit={submit} noValidate aria-busy={quoteState.isLoading}>
           <section aria-labelledby="fulfillment-heading">
-            <span className="status-code">00 / FULFILLMENT</span>
+            <span className="status-code">{t('01 / Получение', '01 / Fulfillment')}</span>
             <h2 id="fulfillment-heading">{t('Способ получения', 'Fulfillment')}</h2>
             <fieldset className={styles.segmented}>
               <legend className="visually-hidden">{t('Доставка или самовывоз', 'Delivery or pickup')}</legend>
@@ -532,7 +532,7 @@ export default function Checkout() {
           </section>
 
           <section aria-labelledby="contact-heading">
-            <span className="status-code">01 / CONTACT</span>
+            <span className="status-code">{t('02 / Контакт', '02 / Contact')}</span>
             <h2 id="contact-heading">{t('Контакт', 'Contact')}</h2>
             <div className={styles.fields}>
               <label>
@@ -581,7 +581,7 @@ export default function Checkout() {
 
           {fulfillment.mode === 'delivery' ? (
             <section aria-labelledby="address-heading">
-              <span className="status-code">02 / ADDRESS</span>
+              <span className="status-code">{t('03 / Адрес', '03 / Address')}</span>
               <h2 id="address-heading">{t('Адрес доставки', 'Delivery address')}</h2>
               <div className={styles.fields}>
                 <label><span>{t('Город', 'City')}</span><input readOnly autoComplete="address-level2" {...register('city')} /></label>
@@ -617,7 +617,7 @@ export default function Checkout() {
             </section>
           ) : (
             <section aria-labelledby="pickup-heading">
-              <span className="status-code">02 / PICKUP</span>
+              <span className="status-code">{t('03 / Пиццерия', '03 / Location')}</span>
               <h2 id="pickup-heading">{t('Пиццерия для самовывоза', 'Pickup pizzeria')}</h2>
               <label className={styles.storeSelect}>
                 <span>{t('Точка Napoli', 'Napoli location')}</span>
@@ -642,7 +642,7 @@ export default function Checkout() {
           )}
 
           <section aria-labelledby="time-heading">
-            <span className="status-code">03 / TIME</span>
+            <span className="status-code">{t('04 / Время', '04 / Time')}</span>
             <h2 id="time-heading">{t('Время', 'Time')}</h2>
             <fieldset className={styles.timeOptions}>
               <legend className="visually-hidden">{t('Как можно скорее или ко времени', 'ASAP or scheduled')}</legend>
@@ -698,7 +698,7 @@ export default function Checkout() {
           </section>
 
           <details className="demo-controls">
-            <summary>{t('Проверить delivery recovery', 'Test delivery recovery')}</summary>
+            <summary>{t('Демо-сценарии доставки', 'Delivery demo scenarios')}</summary>
             <div>
               <label htmlFor="checkout-scenario">{t('Демо-сценарий', 'Demo scenario')}</label>
               <select id="checkout-scenario" {...register('scenario')}>
@@ -725,7 +725,7 @@ export default function Checkout() {
                   </button>
                 ) : null}
                 {apiError.data.code === 'slot-unavailable' ? (
-                  <button type="button" onClick={chooseAsap}>{t('Выбрать ASAP', 'Choose ASAP')}</button>
+                  <button type="button" onClick={chooseAsap}>{t('Получить как можно скорее', 'Receive as soon as possible')}</button>
                 ) : null}
                 {apiError.data.code === 'minimum' ? (
                   <Link to="/menu">{t('Добавить из меню', 'Add from menu')}</Link>
@@ -751,7 +751,7 @@ export default function Checkout() {
           ) : null}
 
           <section aria-labelledby="promo-heading">
-            <span className="status-code">04 / FINAL QUOTE</span>
+            <span className="status-code">{t('05 / Итог', '05 / Total')}</span>
             <h2 id="promo-heading">{t('Промокод и финальный итог', 'Promo code and final total')}</h2>
             <p className={styles.sectionCopy}>
               {t('Проверьте промокод, чтобы увидеть скидку в итоговой сумме.', 'Check your promo code to see the discount in your total.')}
@@ -794,7 +794,7 @@ export default function Checkout() {
             </div>
 
             <details className={styles.promoHelp}>
-              <summary>{t('Демо-коды и promo recovery', 'Demo codes and promo recovery')}</summary>
+              <summary>{t('Демо-промокоды и сценарии', 'Demo promo codes and scenarios')}</summary>
               <p>
                 {t('NAPOLI10 — 10% от 1 000 ₽; COMBO200 — 200 ₽ при комбо от 1 500 ₽; EXPIRED22 — истёкший пример.', 'NAPOLI10 — 10% off from 1,000 ₽; COMBO200 — 200 ₽ off a combo order from 1,500 ₽; EXPIRED22 — an expired example.')}
               </p>
@@ -833,7 +833,7 @@ export default function Checkout() {
                     : t('Финальный итог подтверждён', 'Final total confirmed')}
                 </strong>
                 <p>
-                  Quote {acceptedFinalQuote.id} · {t('действует 10 минут', 'valid for 10 minutes')} ·
+                  {t('Расчёт действует 10 минут', 'This total is valid for 10 minutes')} ·
                   {acceptedFinalQuote.promo
                     ? ' ' + (locale === 'ru' ? acceptedFinalQuote.promo.label : 'Promo discount applied')
                     : ` ${t('без промокода', 'without a promo code')}`}
@@ -854,7 +854,7 @@ export default function Checkout() {
 
             {finalQuoteReady ? (
               <p className={styles.ready} role="status">
-                {t('Итог принят. Заказ готов к demo payment.', 'Total accepted. The order is ready for demo payment.')}
+                {t('Итог принят. Можно перейти к демо-оплате.', 'Total accepted. You can proceed to demo payment.')}
               </p>
             ) : null}
           </section>
@@ -864,10 +864,10 @@ export default function Checkout() {
             aria-labelledby="payment-heading"
             aria-busy={paymentState.status === 'pending' || paymentState.status === 'recovering'}
           >
-            <span className="status-code">05 / DEMO PAYMENT</span>
-            <h2 id="payment-heading">{t('Безопасная симуляция оплаты', 'Safe payment simulation')}</h2>
+            <span className="status-code">{t('06 / Оплата', '06 / Payment')}</span>
+            <h2 id="payment-heading">{t('Демо-оплата', 'Demo payment')}</h2>
             <p>
-              {t('Это demo payment. Мы не запрашиваем номер карты, срок действия, PAN или CVC и не подключаем платёжного провайдера.', 'This is a demo payment. We do not request a card number, expiry date, PAN, or CVC, and no payment provider is connected.')}
+              {t('Деньги не списываются, данные карты не нужны. Можно проверить успешную оплату или восстановление после ошибки.', 'No money is charged and no card details are needed. Try a successful payment or recovery after an error.')}
             </p>
             <p id="order-data-notice" className={styles.paymentHint}>
               {import.meta.env.VITE_ORDER_API_MODE === 'server'
@@ -875,9 +875,9 @@ export default function Checkout() {
                 : t('Используйте вымышленные контакты и адрес. В демо-режиме они сохраняются только в этой вкладке до 24 часов и не попадают в историю заказов.', 'Use made-up contact details and an address. In demo mode they stay only in this tab for up to 24 hours and are excluded from order history.')}
             </p>
             <label className={styles.paymentScenario}>
-              <span>{t('Исход demo payment', 'Demo payment outcome')}</span>
+              <span>{t('Сценарий оплаты', 'Demo payment outcome')}</span>
               <select
-                aria-label={t('Исход demo payment', 'Demo payment outcome')}
+                aria-label={t('Сценарий оплаты', 'Demo payment outcome')}
                 value={paymentScenario}
                 onChange={(event) => setPaymentScenario(
                   event.target.value as MockPaymentScenario,
@@ -901,7 +901,7 @@ export default function Checkout() {
               }
             >
               {paymentState.status === 'pending'
-                ? t('Проверяем demo payment…', 'Checking demo payment…')
+                ? t('Проверяем демо-оплату…', 'Checking demo payment…')
                 : paymentState.status === 'recovering'
                   ? t('Ищем созданный заказ…', 'Looking for the created order…')
                   : acceptedFinalQuote
@@ -916,7 +916,7 @@ export default function Checkout() {
             {paymentState.status === 'pending' || paymentState.status === 'recovering' ? (
               <p className={styles.paymentStatus} role="status" aria-live="polite">
                 {paymentState.status === 'pending'
-                  ? t('Проверяем demo payment…', 'Checking demo payment…')
+                  ? t('Проверяем демо-оплату…', 'Checking demo payment…')
                   : t('Проверяем, был ли заказ уже создан…', 'Checking whether the order was already created…')}
               </p>
             ) : null}
@@ -924,7 +924,7 @@ export default function Checkout() {
               <div className={styles.error} role="alert">
                 <strong>
                   {paymentState.status === 'declined'
-                    ? t('Demo payment отклонён', 'Demo payment declined')
+                    ? t('Демо-оплата отклонена', 'Demo payment declined')
                     : t('Заказ не подтверждён', 'Order not confirmed')}
                 </strong>
                 <p>{paymentState.status === 'declined'
@@ -942,7 +942,7 @@ export default function Checkout() {
         </form>
 
         <aside className={styles.summary} aria-label={t('Предварительный итог', 'Order preview')}>
-          <span className="status-code">ORDER / NAP</span>
+          <span className="status-code">{t('Состав и стоимость', 'Items and cost')}</span>
           <h2>{t('Ваш заказ', 'Your order')}</h2>
           <ul>
             {lines.map((entry) => (

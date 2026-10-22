@@ -1,5 +1,9 @@
 # Product and visual directions
 
+## Approved refinement — 2026-10-23
+
+The owner requested light/dark themes, expressive transitions and a more finished consumer presentation. Napoli remains the brand. Retain Unbounded display, Golos Text body and IBM Plex Mono utility typography; retain porcelain `#f6f3ec`, carbon `#17191d`, cobalt `#3157c8`, tomato `#c43b22` and basil `#2f6a4f`. Dark mode uses `#14171d` canvas, `#1c212a` surfaces and `#a9bdff` readable accent text while keeping the cobalt filled actions. The oven ring remains the single signature, now framing an existing menu photograph on the first screen. Cards, horizontal mobile categories, concise RU/EN copy and a useful footer refine the existing product rather than adding marketing claims or a second visual language.
+
 ## Decision
 
 Рекомендуемое направление: **Napoli — городская neighbourhood kitchen**.

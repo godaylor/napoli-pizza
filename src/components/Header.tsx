@@ -7,6 +7,7 @@ import { preloadCartPage, preloadFavoritesPage, preloadOrdersPage } from '../rou
 import { useLocale } from '../shared/i18n/useLocale';
 import { BRAND_NAME } from '../shared/i18n/locale';
 import { LanguageSwitcher } from './LanguageSwitcher';
+import { ThemeSwitcher } from './ThemeSwitcher';
 import Search from './Search';
 import styles from './Header.module.scss';
 
@@ -55,7 +56,10 @@ function Header() {
         <div className={styles.railInner}>
           <span>NAPOLI / {t('МОСКВА', 'MOSCOW')}</span>
           <span className={styles.kitchenStatus}><span aria-hidden="true" />{t('Печи работают', 'Ovens are on')}</span>
-          <LanguageSwitcher />
+          <div className={styles.preferences}>
+            <ThemeSwitcher />
+            <LanguageSwitcher />
+          </div>
         </div>
       </div>
       <div className={`${styles.inner} container`}>

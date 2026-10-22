@@ -22,6 +22,8 @@ import {
 import { useOnlineStatus } from '../lib/useOnlineStatus';
 import { useAppDispatch } from '../redux/hooks';
 import { useLocale } from '../shared/i18n/useLocale';
+import styles from './Home.module.scss';
+import { RevealSection } from '../shared/motion/RevealSection';
 
 
 const Home = () => {
@@ -128,15 +130,21 @@ const Home = () => {
 
   return (
     <div className="container menu-page">
-      <div className="menu-intro">
-        <span className="eyebrow">Napoli · {t('открытая кухня', 'open kitchen')}</span>
-        <h1>{t('Меню', 'Menu')}</h1>
-        <p>
-          {t(
-            'Пицца из печи, готовые комбо и небольшие блюда к столу. Готовим после заказа и честно показываем, если позиция временно недоступна.',
-            'Oven-baked pizza, set combos, and small plates for the table. We cook after you order and clearly mark anything that is temporarily unavailable.',
-          )}
-        </p>
+      <div className={styles.intro}>
+        <div className={styles.introCopy}>
+          <span className="eyebrow">Napoli · {t('городская пиццерия', 'urban pizzeria')}</span>
+          <h1>{t('Меню', 'Menu')}</h1>
+          <p>{t('Пицца из печи. Для себя и всей компании.', 'Oven-baked pizza. For you and your favourite people.')}</p>
+          <span className={styles.serviceNote}>{t('Доставка и самовывоз', 'Delivery & pickup')}</span>
+        </div>
+        <div className={styles.oven} aria-hidden="true">
+          <div className={styles.ovenRing} />
+          <picture>
+            <source type="image/avif" srcSet="/menu/pizza-margherita-480.avif 480w, /menu/pizza-margherita-960.avif 960w" sizes="(max-width: 639px) 150px, 320px" />
+            <source type="image/webp" srcSet="/menu/pizza-margherita-480.webp 480w, /menu/pizza-margherita-960.webp 960w" sizes="(max-width: 639px) 150px, 320px" />
+            <img src="/menu/pizza-margherita-480.jpg" alt="" width="480" height="480" decoding="async" />
+          </picture>
+        </div>
       </div>
 
       <div className="catalog-toolbar">
@@ -155,8 +163,6 @@ const Home = () => {
           ? `${t('Найдено позиций', 'Items found')}: ${visibleCatalog.products.length}`
           : t('Загружаем результаты', 'Loading results')}
       </p>
-
-      <DemoCatalogControls scenario={scenario} onChange={changeScenario} />
 
       {isStale ? (
         <div className="catalog-notice" role="status" aria-live="polite">
@@ -248,7 +254,7 @@ const Home = () => {
 
         {hasProducts
           ? sections.map((section, sectionIndex) => (
-              <section
+              <RevealSection
                 className="catalog-section"
                 aria-labelledby={`category-${section.id}`}
                 key={section.id}>
@@ -258,7 +264,7 @@ const Home = () => {
                     <h2 id={`category-${section.id}`}>{section.label}</h2>
                     <p>{section.description}</p>
                   </div>
-                  <span>{section.products.length} {t('позиций', 'items')}</span>
+                  <span>{t('В меню:', 'Items:')} {section.products.length}</span>
                 </div>
                 <div className="catalog-grid">
                   {section.products.map((product, productIndex) => (
@@ -269,9 +275,12 @@ const Home = () => {
                     />
                   ))}
                 </div>
-              </section>
+              </RevealSection>
             ))
           : null}
+      </div>
+      <div className={styles.demoArea}>
+        <DemoCatalogControls scenario={scenario} onChange={changeScenario} />
       </div>
     </div>
   );

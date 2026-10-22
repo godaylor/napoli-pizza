@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light;
   --color-porcelain: #f6f3ec;
   --color-carbon: #17191d;
   --color-carbon-soft: #42454c;
@@ -14,6 +15,18 @@
   --color-steel-soft: #eeece6;
   --color-surface: #fffdf8;
   --color-error-soft: #fff0ec;
+  --color-action-hover: #24439f;
+  --color-focus-ring: #3157c8;
+  --color-on-accent: #ffffff;
+  --color-rail-bg: #17191d;
+  --color-rail-text: #f6f3ec;
+  --color-inverse-surface: #17191d;
+  --color-inverse-text: #f6f3ec;
+  --color-inverse-muted: #d9d7d0;
+  --color-inverse-accent: #b5c6ff;
+  --color-success-soft: #e8f4ed;
+  --color-success-text: #194d37;
+  --color-surface-translucent: rgb(255 253 248 / 94%);
 
   --font-display: 'Unbounded', 'Arial Black', sans-serif;
   --font-body: 'Golos Text', Inter, system-ui, -apple-system, sans-serif;
@@ -46,4 +59,29 @@
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
 
   --layout-max: 1320px;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-porcelain: #14171d;
+  --color-carbon: #f3f1eb;
+  --color-carbon-soft: #c6cad2;
+  --color-ink-muted: #adb3bf;
+  --color-tomato: #f07560;
+  --color-tomato-dark: #ffad9c;
+  --color-cobalt-dark: #a9bdff;
+  --color-cobalt-soft: #222f51;
+  --color-basil: #81c5a0;
+  --color-steel: #363d49;
+  --color-steel-strong: #596373;
+  --color-steel-soft: #262c36;
+  --color-surface: #1c212a;
+  --color-error-soft: #382423;
+  --color-focus-ring: #a9bdff;
+  --color-inverse-surface: #0e1117;
+  --color-success-soft: #1d342b;
+  --color-success-text: #a4e0bf;
+  --color-surface-translucent: rgb(28 33 42 / 94%);
+  --shadow-card: 0 18px 50px rgb(0 0 0 / 16%);
+  --shadow-float: 0 24px 70px rgb(0 0 0 / 30%);
 }

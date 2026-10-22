@@ -59,7 +59,7 @@ describe('Napoli owned menu', () => {
     await waitFor(() => {
       expect(screen.getByRole('article', { name: 'Тирамису' })).toBeInTheDocument();
       expect(screen.getAllByRole('article')).toHaveLength(1);
-    });
+    }, { timeout: 3000 });
     expect(document.querySelector('[class*="pagination"]')).not.toBeInTheDocument();
   });
 

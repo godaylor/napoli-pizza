@@ -59,7 +59,7 @@ function ProductContent({ details, returnTo, editFingerprint }: ProductContentPr
           <span className="product-oven-ring" aria-hidden="true">N</span>
         </div>
         <article className="product-details">
-          <span className="eyebrow">{t('Пицца из печи', 'Oven-baked pizza')} / Napoli</span>
+          <span className="eyebrow">{product.kind === 'pizza' ? t('Пицца из печи', 'Oven-baked pizza') : t('Из меню', 'On the menu')} / Napoli</span>
           <h1>{product.name}</h1>
           <FavoriteToggle
             className="favorite-toggle--details"
@@ -121,7 +121,7 @@ export default function Product() {
   if (isLoading) {
     return (
       <section className="container route-status" aria-busy="true">
-        <span className="status-code">LOAD / NAP</span>
+        <span className="status-code">{t('Загрузка', 'Loading')}</span>
         <h1>{t('Открываем продукт', 'Opening product')}</h1>
         <p>{t('Уточняем варианты, вес и доступность.', 'Checking variants, weight, and availability.')}</p>
       </section>
@@ -131,7 +131,7 @@ export default function Product() {
   if (normalizedError && !data) {
     return (
       <section className="container route-status" role={notFound ? undefined : 'alert'}>
-        <span className="status-code">{notFound ? '404 / NAP' : 'ERROR / NAP'}</span>
+        <span className="status-code">{notFound ? t('Нет в меню', 'Not on the menu') : t('Не удалось загрузить', 'Unable to load')}</span>
         <h1>{notFound ? t('Такого продукта нет', 'Product not found') : t('Не удалось открыть продукт', 'Could not open product')}</h1>
         <p>{locale === 'ru'
           ? normalizedError.data.message

@@ -1,8 +1,10 @@
-import { Suspense, useEffect } from 'react';
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { Suspense, useEffect, useRef } from 'react';
+import { Navigate, Route, Routes, useLocation, useNavigationType } from 'react-router-dom';
 
 import Header from './components/Header';
 import MobileNavigation from './components/MobileNavigation';
+import { SiteFooter } from './components/SiteFooter';
+import { useRouteMotion } from './shared/motion/useRouteMotion';
 import { RouteErrorBoundary } from './components/RouteErrorBoundary';
 import { FavoritesPersistenceStatus } from './features/favorites/ui/FavoritesPersistenceStatus';
 import Home from './pages/Home';
@@ -34,6 +36,17 @@ const RouteLoading = () => {
 function App() {
   const location = useLocation();
   const { locale, t } = useLocale();
+  const mainRef = useRouteMotion<HTMLElement>(location.pathname);
+  const navigationType = useNavigationType();
+  const previousPath = useRef(location.pathname);
+
+  useEffect(() => {
+    if (previousPath.current === location.pathname) return;
+    previousPath.current = location.pathname;
+    // New pages start at their heading; Back/Forward retains browser restoration.
+    // Search/filter changes do not move the page or remount checkout fields.
+    if (navigationType !== 'POP') window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [location.pathname, navigationType]);
 
   useEffect(() => {
     const pageName =
@@ -63,7 +76,7 @@ function App() {
       </a>
       <FavoritesPersistenceStatus />
       <Header />
-      <main id="main-content" className="content" tabIndex={-1}>
+      <main ref={mainRef} id="main-content" className="content" tabIndex={-1}>
         <RouteErrorBoundary resetKey={`${location.pathname}${location.search}`}>
           <Suspense fallback={<RouteLoading />}>
             <Routes>
@@ -87,6 +100,7 @@ function App() {
           </Suspense>
         </RouteErrorBoundary>
       </main>
+      <SiteFooter />
       {location.pathname === '/checkout' || location.pathname.startsWith('/order/')
         ? null
         : <MobileNavigation />}

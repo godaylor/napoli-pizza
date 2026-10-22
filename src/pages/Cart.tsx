@@ -97,7 +97,7 @@ const Cart = () => {
     <div className={`container ${styles.page}`}>
       {persistenceWarning ? (
         <div className={styles.warning} role="status">
-          <strong>{t('Корзина доступна в памяти', 'Cart is available in memory')}</strong>
+          <strong>{t('Корзина не сохраняется в браузере', 'Your cart cannot be saved in this browser')}</strong>
           <span>{t(persistenceWarning, 'Storage is unavailable. The cart will work until this tab is closed.')}</span>
         </div>
       ) : null}
@@ -114,7 +114,7 @@ const Cart = () => {
           <span className={styles.emptyRing} aria-hidden="true">0</span>
           <span className="eyebrow">{t('Корзина', 'Cart')} / Napoli</span>
           <h1 id="cart-heading">{t('Корзина пока пуста', 'Your cart is empty')}</h1>
-          <p>{t('Выберите пиццу или готовый набор. Состав и сумма восстановятся после reload.', 'Choose a pizza or a combo. Your selection and total will survive a reload.')}</p>
+          <p>{t('Выберите пиццу или готовый набор — всё добавленное появится здесь.', 'Choose a pizza or a combo — everything you add will appear here.')}</p>
           <Link className="primary-link" to={returnTo}>{t('Открыть меню', 'Open menu')}</Link>
         </section>
       ) : (
@@ -123,7 +123,7 @@ const Cart = () => {
             <div>
               <span className="eyebrow">{t('Заказ', 'Order')} / Napoli</span>
               <h1>{t('Корзина', 'Cart')}</h1>
-              <p>{count} {t('позиций. Цены пересчитаны по текущему каталогу.', 'items. Prices were recalculated from the current menu.')}</p>
+              <p>{t('Проверьте состав и количество перед оформлением.', 'Check your selection and quantities before checkout.')}</p>
             </div>
             <div className={styles.headingActions}>
               <Link className="secondary-link" to={returnTo}>{t('Продолжить выбор', 'Keep browsing')}</Link>
@@ -143,9 +143,9 @@ const Cart = () => {
                     aria-labelledby={`cart-line-title-${entry.line.fingerprint}`}
                     tabIndex={-1}>
                     <div className={styles.lineCopy}>
-                      <span className="status-code">{t('Печь', 'Oven')} / NAP</span>
+                      <span className="status-code">{t('Ваш выбор', 'Your selection')}</span>
                       <h2 id={`cart-line-title-${entry.line.fingerprint}`}>{entry.displayName}</h2>
-                      <ul className={styles.configuration} aria-label={t('Конфигурация', 'Configuration')}>
+                      <ul className={styles.configuration} aria-label={t('Состав и размер', 'Ingredients and size')}>
                         {entry.configurationSummary.map((item) => <li key={item}>{item}</li>)}
                       </ul>
                       {entry.issues.length > 0 ? (
@@ -159,7 +159,7 @@ const Cart = () => {
                           <Link
                             to={`/menu/${entry.product.slug}`}
                             state={{ returnTo: '/cart', editFingerprint: entry.line.fingerprint, discoveryReturnTo: returnTo }}>
-                            {t('Изменить конфигурацию', 'Edit configuration')}
+                            {t('Изменить состав', 'Edit selection')}
                           </Link>
                         ) : null}
                         <button type="button" onClick={() => dispatch(removeLine(entry.line.fingerprint))}>
@@ -200,7 +200,7 @@ const Cart = () => {
             <div className={styles.rail}>
               {visibleRecommendation ? (
                 <section className={styles.recommendation} aria-labelledby="cart-recommendation-heading">
-                  <span className="status-code">PAIR / NAP</span>
+                  <span className="status-code">{t('Хорошее дополнение', 'A good pairing')}</span>
                   <h2 id="cart-recommendation-heading">{t('К этому заказу', 'Pairs with this order')}</h2>
                   <strong>{visibleRecommendation.product.name}</strong>
                   <p>{visibleRecommendation.reason}</p>
@@ -233,17 +233,17 @@ const Cart = () => {
               ) : null}
 
               <aside className={styles.summary} aria-label={t('Сумма корзины', 'Cart total')}>
-                <span className="status-code">CURRENT / NAP</span>
+                <span className="status-code">{t('Перед оформлением', 'Before checkout')}</span>
                 <h2>{t('Итого сейчас', 'Current total')}</h2>
                 <dl>
                   <div><dt>{t('Товары', 'Items')} · {count}</dt><dd>{formatMinorMoney(subtotalMinor)} ₽</dd></div>
                 </dl>
-                <strong>{t('К оплате', 'Due now')} · {formatMinorMoney(subtotalMinor)} ₽</strong>
+                <strong>{t('Стоимость товаров', 'Item subtotal')} · {formatMinorMoney(subtotalMinor)} ₽</strong>
                 {blockingIssues.length > 0 ? (
                   <p role="alert">{t('Исправьте недоступные позиции перед оформлением.', 'Fix unavailable items before checkout.')}</p>
                 ) : (
                   <>
-                  <p>{t('Адрес, fee и ETA подтвердятся на следующем шаге.', 'Address, fee, and ETA will be confirmed at the next step.')}</p>
+                  <p>{t('На следующем шаге выберите доставку или самовывоз. Там же уточним время и стоимость получения.', 'Choose delivery or pickup at checkout, where we’ll confirm the timing and any delivery cost.')}</p>
                   <Link
                     className="primary-link"
                     to="/checkout"

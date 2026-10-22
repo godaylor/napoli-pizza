@@ -1,0 +1,116 @@
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(200px, 340px);
+  align-items: center;
+  gap: clamp(24px, 6vw, 96px);
+  padding-block: 0 clamp(28px, 4vw, 56px);
+}
+
+.introCopy {
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+  min-width: 0;
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 7.8vw, 6.5rem);
+    line-height: 1.06;
+    letter-spacing: -0.05em;
+  }
+
+  p {
+    max-width: 26ch;
+    color: var(--color-ink-muted);
+    font-size: clamp(1rem, 2.1vw, 1.625rem);
+    line-height: 1.45;
+    text-wrap: balance;
+  }
+}
+
+.serviceNote {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 6px;
+  color: var(--color-cobalt-dark);
+  font-size: 0.875rem;
+  font-weight: 650;
+
+  span { font-size: 1.25rem; }
+}
+
+.oven {
+  position: relative;
+  overflow: clip;
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 1;
+  padding: 18px;
+  justify-self: end;
+
+  picture, img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+
+  img { object-fit: cover; }
+}
+
+.ovenRing {
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--color-steel);
+  border-top: 6px solid var(--color-cobalt);
+  border-right: 6px solid var(--color-cobalt);
+  border-bottom-color: var(--color-tomato);
+  border-radius: 50%;
+  transform: rotate(-22deg);
+}
+
+.demoArea {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-steel);
+
+  > details { margin-bottom: 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ovenRing { animation: warm-up 850ms var(--ease-out) both; }
+  .oven picture { animation: serve 650ms var(--ease-out) both; }
+}
+
+@keyframes warm-up {
+  from { opacity: 0; transform: rotate(-65deg) scale(0.94); }
+  to { opacity: 1; transform: rotate(-22deg) scale(1); }
+}
+
+@keyframes serve {
+  from { opacity: 0.4; transform: scale(0.94) rotate(-5deg); }
+  to { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+@media (max-width: 639px) {
+  .intro {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-bottom: 28px;
+  }
+  .introCopy { flex: 1 1 9rem; gap: 12px; }
+  .introCopy > :global(.eyebrow) { grid-column: 1 / -1; font-size: 0.625rem; }
+  .introCopy h1 { font-size: clamp(2rem, 8vw, 3.2rem); }
+  .introCopy p { font-size: 0.9375rem; }
+  .serviceNote { font-size: 0.75rem; gap: 6px; }
+  .serviceNote span { display: none; }
+  .oven { flex: 0 0 116px; margin-inline-start: auto; padding: 8px; }
+  .ovenRing { border-width: 2px; border-top-width: 4px; border-right-width: 4px; }
+}
+
+@media (min-width: 420px) and (max-width: 639px) {
+  .intro { gap: 20px; }
+  .oven { flex-basis: 160px; }
+}

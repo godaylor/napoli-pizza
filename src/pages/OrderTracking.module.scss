@@ -13,11 +13,11 @@
   min-width: 0;
   padding: clamp(var(--space-6), 7vw, var(--space-10));
   border-radius: var(--radius-xl);
-  background: var(--color-carbon);
-  color: var(--color-porcelain);
+  background: var(--color-inverse-surface);
+  color: var(--color-inverse-text);
 }
 .hero :global(.eyebrow) {
-  color: var(--color-cobalt-soft);
+  color: var(--color-inverse-accent);
 }
 
 
@@ -34,7 +34,7 @@
 .hero p {
   max-width: 62ch;
   margin: 0;
-  color: var(--color-steel);
+  color: var(--color-inverse-muted);
 }
 
 .ring {
@@ -44,7 +44,7 @@
   aspect-ratio: 1;
   place-items: center;
   border-radius: 50%;
-  color: var(--color-porcelain);
+  color: var(--color-inverse-text);
   font: 700 clamp(1.5rem, 5vw, 3rem) var(--font-display);
   isolation: isolate;
 }
@@ -55,7 +55,7 @@
   inset: 10px;
   border: 2px solid var(--color-tomato);
   border-radius: inherit;
-  background: var(--color-carbon);
+  background: var(--color-inverse-surface);
   content: '';
 }
 
@@ -213,12 +213,12 @@
 
 .delayed {
   border: 1px solid var(--color-tomato);
-  background: color-mix(in srgb, var(--color-tomato) 10%, white);
+  background: var(--color-error-soft);
 }
 
 .cancelled {
   border: 1px solid var(--color-tomato);
-  background: color-mix(in srgb, var(--color-tomato) 14%, white);
+  background: var(--color-error-soft);
 }
 
 .actions {

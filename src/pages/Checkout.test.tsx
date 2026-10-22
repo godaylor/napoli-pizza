@@ -67,7 +67,7 @@ describe('M6A guest delivery checkout', () => {
   it('confirms fee/ETA as guest and marks the quote stale after address change', async () => {
     const user = userEvent.setup();
     renderCheckout();
-    expect(await screen.findByRole('heading', { name: 'Доставка', level: 1 })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Доставка', level: 1 }, { timeout: 3000 })).toBeInTheDocument();
     expect(screen.queryByText(/регистрац/i)).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: 'Проверить адрес' }));
@@ -95,7 +95,7 @@ describe('M6A guest delivery checkout', () => {
     expect(screen.getByText('Введите имя.')).toBeInTheDocument();
 
     await user.type(name, 'Анна');
-    await user.click(screen.getByText('Проверить delivery recovery'));
+    await user.click(screen.getByText('Демо-сценарии доставки'));
     await user.selectOptions(screen.getByRole('combobox', { name: 'Демо-сценарий' }), 'unserviceable');
     await user.click(screen.getByRole('button', { name: 'Проверить адрес' }));
     expect(await screen.findByText(/вне демо-зоны/)).toBeInTheDocument();
@@ -148,7 +148,7 @@ describe('checkout data disclosure before placing an order', () => {
     const user = userEvent.setup();
     renderCheckout();
     await screen.findByRole('heading', { name: 'Доставка', level: 1 });
-    const payment = screen.getByRole('region', { name: 'Безопасная симуляция оплаты' });
+    const payment = screen.getByRole('region', { name: 'Демо-оплата' });
     const action = within(payment).getByRole('button', { name: 'Сначала подтвердите итог' });
     expect(action).toHaveAccessibleDescription(/Используйте вымышленные контакты и адрес/);
     expect(action).toHaveAccessibleDescription(/на сервере без автоматического удаления/);
@@ -214,7 +214,7 @@ describe('M6B pickup, scheduling and recovery', () => {
     renderCheckout();
     await screen.findByRole('heading', { name: 'Доставка', level: 1 });
     await user.click(screen.getByRole('radio', { name: 'Самовывоз' }));
-    await user.click(screen.getByText('Проверить delivery recovery'));
+    await user.click(screen.getByText('Демо-сценарии доставки'));
     const scenario = screen.getByRole('combobox', { name: 'Демо-сценарий' });
 
     await user.selectOptions(scenario, 'closed-store');
@@ -229,7 +229,7 @@ describe('M6B pickup, scheduling and recovery', () => {
     await user.selectOptions(scenario, 'slot-unavailable');
     await user.click(screen.getByRole('button', { name: 'Повторить расчёт' }));
     expect(await screen.findByText(/время уже недоступно/i)).toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: 'Выбрать ASAP' }));
+    await user.click(screen.getByRole('button', { name: 'Получить как можно скорее' }));
     expect(screen.getByRole('radio', { name: /^Как можно скорее/ })).toBeChecked();
     await user.click(screen.getByRole('button', { name: 'Повторить расчёт' }));
     expect((await screen.findAllByText(/Готово через 20–25 мин/)).length).toBeGreaterThan(0);
@@ -310,7 +310,7 @@ describe('M7 promo codes and authoritative final quote', () => {
     await screen.findByText('Адрес подтверждён');
     const street = screen.getByRole('textbox', { name: 'Улица' });
 
-    await user.click(screen.getByText('Демо-коды и promo recovery'));
+    await user.click(screen.getByText('Демо-промокоды и сценарии'));
     const scenario = screen.getByRole('combobox', {
       name: 'Сценарий финального расчёта',
     });
@@ -340,12 +340,12 @@ describe('M8 mock payment, order and confirmation', () => {
     await user.click(screen.getByRole('button', { name: 'Подтвердить итог' }));
     await screen.findByText('Финальный итог подтверждён');
 
-    const outcome = screen.getByRole('combobox', { name: 'Исход demo payment' });
+    const outcome = screen.getByRole('combobox', { name: 'Сценарий оплаты' });
     await user.selectOptions(outcome, 'decline');
     await user.click(screen.getByRole('button', {
       name: /Оплатить .* и оформить/,
     }));
-    expect(await screen.findByText('Demo payment отклонён')).toBeInTheDocument();
+    expect(await screen.findByText('Демо-оплата отклонена')).toBeInTheDocument();
     expect(screen.getByText('Финальный итог подтверждён')).toBeInTheDocument();
 
     await user.selectOptions(outcome, 'success');

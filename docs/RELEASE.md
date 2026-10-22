@@ -1,6 +1,18 @@
 <!-- generated-by: gsd-doc-writer -->
 # Release verification
 
+## Appearance refinement — 2026-10-23
+
+Napoli retains its brand, oven-ring motif and porcelain/carbon/cobalt palette. The menu now leads with food photography, quieter filters and clear product actions; reviewer-only catalogue scenarios move below the menu. Light, dark and device-following themes persist locally and apply before first paint. Native controls, focus indicators, cart and checkout share the palette. Copy replaces implementation jargon while preserving the explicit test-order/payment and server-retention disclosures.
+
+Motion is bounded: a short oven-ring entrance, intent-driven card feedback, one-time section reveals and a subtle route transition. Content stays visible without animation APIs, keyboard focus cancels motion and reduced-motion disables it. New route navigation starts at the top without remounting checkout or resetting query filters. The narrow-screen loading heading now wraps at 200% text instead of expanding the document.
+
+Local Node 24.19.0 verification: typecheck and zero-warning lint PASS; production build PASS (155 modules). Full Playwright matrix: 172 PASS / 4 existing platform-specific skips. After the final scroll/loading fixes, the appearance and release suites passed again: 26 PASS / 2 Chromium-only raw-Tab skips. Coverage includes both themes at 320/390/768/1024/1440 px, 320 px with 200% text in loaded and loading states, preference persistence/system changes, form preservation, reduced motion, dark Axe checks through checkout/confirmation/tracking, and keyboard-only guest purchase. An initial transient reveal-opacity contrast issue was fixed with transform-only section motion; assertions were not relaxed.
+
+Unit/integration gate: 35 files / 158 tests PASS. The async search result assertion and first lazy checkout wait use a bounded 3-second allowance for a concurrently loaded workstation, retaining their original result and count assertions.
+
+Testing uses only Napoli ports 32507/32508 and the project-local browser cache. No backend/schema/credentials, paid resources or foreign projects/processes were changed. Publication targets the existing production project/domain; hosted CI and runtime verification follow the source push. VPN-off testing remains explicitly deferred.
+
 ## Post-release corrections — 2026-10-18 — local gate PASS
 
 Four focused corrections preserve the existing visual system: navigation gets its own row at 640–767 px; root elements fit the available width beside a classic scrollbar; sanitized history derives demo status on read through the existing tracking engine; server-mode checkout explains persistence before submission, with RU/EN copy linked to the payment action. Server rows still have no automatic deletion; the 24-hour boundary describes only the active tab copy. No database permissions, schema, immutable server snapshots, paid resource or foreign project/process was changed.

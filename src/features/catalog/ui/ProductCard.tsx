@@ -52,9 +52,6 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
         onPointerDown={preload}>
         <div className="product-card__media">
           <ProductImage image={product.image} name={product.name} priority={priority} />
-          <span className="product-card__stamp" aria-hidden="true">
-            napoli
-          </span>
         </div>
         <div className="product-card__body">
           {product.badges.length > 0 ? (
@@ -77,8 +74,8 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           <div className="product-card__footer">
             <strong>{t('от', 'from')} {formatMinorMoney(product.priceFromMinor)} ₽</strong>
             <span
-              className={`availability availability--${product.availability.status}`}>
-              {soldOut ? t('Временно закончилась', 'Sold out') : t('Открыть', 'Open')}
+              className={soldOut ? 'availability availability--sold-out' : 'product-card__choose'}>
+              {soldOut ? t('Временно закончилась', 'Sold out') : <>{t('Выбрать', 'Choose')}<span aria-hidden="true">↗</span></>}
             </span>
           </div>
           {soldOut ? (
