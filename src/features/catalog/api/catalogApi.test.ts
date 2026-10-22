@@ -25,7 +25,7 @@ describe('catalog RTK Query integration', () => {
     const allRequest = store.dispatch(catalogApi.endpoints.getMenu.initiate(defaultArgs));
 
     expect(catalogApi.endpoints.getMenu.select(defaultArgs)(store.getState()).status).toBe('pending');
-    await vi.advanceTimersByTimeAsync(100);
+    await vi.advanceTimersByTimeAsync(0);
     expect((await allRequest.unwrap()).products).toHaveLength(36);
 
     const comboArgs = { ...defaultArgs, category: 'combo' as const };

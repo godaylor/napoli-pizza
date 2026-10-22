@@ -11,6 +11,10 @@ export function useRevealMotion<T extends HTMLElement>() {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (preference.matches) return;
 
+    // Content already on screen should paint immediately, including a section
+    // that is only partly visible at the bottom of the initial viewport.
+    if (element.getBoundingClientRect().top < window.innerHeight) return;
+
     let animation: Animation | undefined;
     let revealed = false;
     const observer = new IntersectionObserver((entries) => {

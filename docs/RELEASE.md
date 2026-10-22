@@ -3,6 +3,8 @@
 
 ## Appearance refinement — 2026-10-23
 
+Published design commit `a6dc2de` has green CI run `39857233251` and Vercel Production deployment `G4FvqMvxKR1fnDYcv8kxHVUX5QUg`. Public browser smoke passed: dark theme → Margherita → cart reload → delivery quote (590 + 199 = 789 RUB) → simulated timeout-after-create/recovery → confirmation reload → tracking reload → sanitized history reload. Test order `nap_f9f52279e29e4b9690faa6560cdfbc0c` used only synthetic contact data; no real payment. Browser console error list was empty. Test history is retained.
+
 Napoli retains its brand, oven-ring motif and porcelain/carbon/cobalt palette. The menu now leads with food photography, quieter filters and clear product actions; reviewer-only catalogue scenarios move below the menu. Light, dark and device-following themes persist locally and apply before first paint. Native controls, focus indicators, cart and checkout share the palette. Copy replaces implementation jargon while preserving the explicit test-order/payment and server-retention disclosures.
 
 Motion is bounded: a short oven-ring entrance, intent-driven card feedback, one-time section reveals and a subtle route transition. Content stays visible without animation APIs, keyboard focus cancels motion and reduced-motion disables it. New route navigation starts at the top without remounting checkout or resetting query filters. The narrow-screen loading heading now wraps at 200% text instead of expanding the document.
@@ -11,7 +13,11 @@ Local Node 24.19.0 verification: typecheck and zero-warning lint PASS; productio
 
 Unit/integration gate: 35 files / 158 tests PASS. The async search result assertion and first lazy checkout wait use a bounded 3-second allowance for a concurrently loaded workstation, retaining their original result and count assertions.
 
+Performance follow-up keeps card images below the hero lazy/auto, prioritizes the hero, avoids entrances for already-visible sections, loads optional fonts without blocking paint, and removes artificial latency from the normal static-catalog response (the explicit slow/error scenarios remain). The additional motion test brings the unit/integration count to 159 PASS; typecheck/lint/build also pass. Detailed Lighthouse reports are now retained locally, and the script stops its own preview even when Chrome's temporary-profile cleanup fails on Windows. The final three-run mobile lab LCP median is 3011 ms (initial design run: 4886 ms), CLS 0 and observed INP 32 ms. **The 2500 ms LCP budget is still not met**; this must not be represented as a complete performance pass. External Google Fonts failed in the lab runs, which used fallback fonts; public-network/real-user performance and VPN-off remain unverified.
+
 Testing uses only Napoli ports 32507/32508 and the project-local browser cache. No backend/schema/credentials, paid resources or foreign projects/processes were changed. Publication targets the existing production project/domain; hosted CI and runtime verification follow the source push. VPN-off testing remains explicitly deferred.
+
+The performance follow-up's final targeted browser matrix passed 28/28 in Chromium 390/1440, Firefox 1440 and WebKit 390: image loading/fallback, slow/stale/empty/500/offline recovery, themes, responsive/text enlargement, reduced-motion and the accessible dark guest journey. Its final typecheck and zero-warning lint passed.
 
 ## Post-release corrections — 2026-10-18 — local gate PASS
 

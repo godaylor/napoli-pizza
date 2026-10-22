@@ -38,7 +38,8 @@ export class CatalogDemoError extends Error {
 }
 
 const delays: Record<CatalogScenario, number> = {
-  default: 90,
+  // Owned fixtures need no artificial latency; the slow scenario exercises loading.
+  default: 0,
   slow: 1_200,
   empty: 180,
   error: 180,

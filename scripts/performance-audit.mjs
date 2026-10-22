@@ -73,6 +73,8 @@ try {
       port: chrome.port,
     });
     if (!result) throw new Error('Lighthouse returned no result.');
+    await mkdir(path.join(root, 'artifacts', 'performance'), { recursive: true });
+    await writeFile(path.join(root, 'artifacts', 'performance', `lighthouse-${index + 1}.json`), JSON.stringify(result.lhr));
     runs.push({
       lcpMs: result.lhr.audits['largest-contentful-paint'].numericValue,
       cls: result.lhr.audits['cumulative-layout-shift'].numericValue,
@@ -130,6 +132,9 @@ try {
   if (summary.observedInpMs === null) throw new Error('No Event Timing interaction was captured.');
   if (summary.observedInpMs > summary.targets.inpMs) throw new Error('INP budget exceeded.');
 } finally {
-  if (chrome) await chrome.kill();
-  preview.kill();
+  try {
+    if (chrome) await chrome.kill();
+  } finally {
+    preview.kill();
+  }
 }

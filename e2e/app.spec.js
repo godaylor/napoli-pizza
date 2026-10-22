@@ -132,11 +132,14 @@ test('uses intrinsic responsive images, below-fold lazy loading and controlled f
   await expect(images).toHaveCount(36);
   await expect(images.first()).toHaveAttribute('width', '960');
   await expect(images.first()).toHaveAttribute('height', '960');
-  await expect(images.first()).toHaveAttribute('loading', 'eager');
+  await expect(page.locator('main img:not([data-product-image])')).toHaveAttribute('loading', 'eager');
+  await expect(page.locator('main img:not([data-product-image])')).toHaveAttribute('fetchpriority', 'high');
+  await expect(images.first()).toHaveAttribute('loading', 'lazy');
   expect(await images.filter({ has: page.locator('[loading="lazy"]') }).count()).toBe(0);
   expect(await page.locator('[data-product-image][loading="lazy"]').count()).toBeGreaterThan(20);
   await expect(page.locator('source[type="image/avif"]').first()).toHaveAttribute('srcset', /480\.avif.*960\.avif/);
   await expect(page.locator('source[type="image/webp"]').first()).toHaveAttribute('srcset', /480\.webp.*960\.webp/);
+  await images.first().scrollIntoViewIfNeeded();
   await expect.poll(() => images.first().evaluate((image) => image.naturalWidth)).toBeGreaterThan(0);
 
   const fallbackTarget = images.first();

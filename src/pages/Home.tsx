@@ -142,7 +142,7 @@ const Home = () => {
           <picture>
             <source type="image/avif" srcSet="/menu/pizza-margherita-480.avif 480w, /menu/pizza-margherita-960.avif 960w" sizes="(max-width: 639px) 150px, 320px" />
             <source type="image/webp" srcSet="/menu/pizza-margherita-480.webp 480w, /menu/pizza-margherita-960.webp 960w" sizes="(max-width: 639px) 150px, 320px" />
-            <img src="/menu/pizza-margherita-480.jpg" alt="" width="480" height="480" decoding="async" />
+            <img src="/menu/pizza-margherita-480.jpg" alt="" width="480" height="480" loading="eager" decoding="async" {...{ fetchpriority: 'high' }} />
           </picture>
         </div>
       </div>
@@ -253,7 +253,7 @@ const Home = () => {
         ) : null}
 
         {hasProducts
-          ? sections.map((section, sectionIndex) => (
+          ? sections.map((section) => (
               <RevealSection
                 className="catalog-section"
                 aria-labelledby={`category-${section.id}`}
@@ -267,11 +267,10 @@ const Home = () => {
                   <span>{t('В меню:', 'Items:')} {section.products.length}</span>
                 </div>
                 <div className="catalog-grid">
-                  {section.products.map((product, productIndex) => (
+                  {section.products.map((product) => (
                     <ProductCard
                       key={product.id}
                       product={product}
-                      priority={sectionIndex === 0 && productIndex < 4}
                     />
                   ))}
                 </div>

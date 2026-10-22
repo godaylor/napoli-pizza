@@ -8,6 +8,8 @@ Motion is progressive enhancement: visible content by default, one-time 12 px se
 
 The original target specification follows; implemented milestone supplements remain authoritative for current behavior.
 
+First-screen loading: the hero is eager/high priority; catalog-card photos are native lazy/auto. Sections already within the viewport do not animate on mount. The owned catalog's normal response has no simulated delay; explicit slow/error/offline scenarios retain their independent timings. Optional external fonts load without blocking the initial fallback-font render.
+
 Статус: proposed
 
 Принцип: frontend-first consumer product, не enterprise platform.

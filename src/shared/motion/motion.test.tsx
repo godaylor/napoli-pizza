@@ -10,12 +10,16 @@ let reducedMotion: boolean;
 let preferenceListeners: Set<(event: MediaQueryListEvent) => void>;
 let cancel: ReturnType<typeof vi.fn>;
 let animate: ReturnType<typeof vi.fn>;
+let observe: ReturnType<typeof vi.fn<() => void>>;
 
 beforeEach(() => {
   reducedMotion = false;
   preferenceListeners = new Set();
   cancel = vi.fn();
   animate = vi.fn(() => ({ cancel }));
+  observe = vi.fn();
+  vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect')
+    .mockReturnValue(new DOMRect(0, window.innerHeight + 24, 320, 200));
   Object.defineProperty(HTMLElement.prototype, 'animate', { configurable: true, value: animate });
   vi.stubGlobal('matchMedia', () => ({
     get matches() { return reducedMotion; },
@@ -24,7 +28,7 @@ beforeEach(() => {
   }));
   vi.stubGlobal('IntersectionObserver', class {
     constructor(callback: IntersectionObserverCallback) { intersect = callback; }
-    observe() {}
+    observe() { observe(); }
     disconnect() {}
   });
 });
@@ -37,6 +41,8 @@ afterEach(() => {
 
 function reveal() {
   const section = screen.getByRole('region', { name: 'Pizza' });
+  vi.mocked(HTMLElement.prototype.getBoundingClientRect)
+    .mockReturnValue(new DOMRect(0, 24, 320, 200));
   const bounds = section.getBoundingClientRect();
   act(() => intersect(
     [{
@@ -62,6 +68,15 @@ function RouteContent({ pathname }: { pathname: string }) {
 }
 
 describe('progressive motion', () => {
+  it('leaves an initially visible section still, even when only its top is on screen', () => {
+    vi.mocked(HTMLElement.prototype.getBoundingClientRect)
+      .mockReturnValue(new DOMRect(0, window.innerHeight - 24, 320, 200));
+    render(<Section />);
+    expect(screen.getByRole('link', { name: 'Choose pizza' })).toBeVisible();
+    expect(observe).not.toHaveBeenCalled();
+    expect(animate).not.toHaveBeenCalled();
+  });
+
   it('leaves content visible and focusable when observer support is missing', () => {
     vi.stubGlobal('IntersectionObserver', undefined);
     render(<Section />);
